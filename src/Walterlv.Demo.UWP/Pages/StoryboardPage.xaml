@@ -6,8 +6,35 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
+    <FrameworkElement.Resources>
+        <CircleEase x:Key="EasingFunction.Translate" EasingMode="EaseOut"/>
+        <Storyboard x:Name="TranslateStoryboard" x:Key="Storyboard.Translate">
+            <DoubleAnimation Storyboard.TargetName="TranslateTransform" Storyboard.TargetProperty="X"
+                             EasingFunction="{StaticResource EasingFunction.Translate}"/>
+            <DoubleAnimation Storyboard.TargetName="TranslateTransform" Storyboard.TargetProperty="Y"
+                             EasingFunction="{StaticResource EasingFunction.Translate}"/>
+        </Storyboard>
+    </FrameworkElement.Resources>
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Button Grid.Row="0" Grid.Column="0" Content="平移至随机位置" Click="BeginStoryboard_Click"/>
+        <Button Grid.Row="0" Grid.Column="1" Content="从随机位置平移" Click="BeginStoryboard2_Click"/>
+        <Button Grid.Row="0" Grid.Column="2" Content="暂停" Click="PauseStoryboard_Click"/>
+        <Canvas x:Name="DisplayCanvas" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
+            <Rectangle x:Name="DisplayShape" Fill="ForestGreen" Width="120" Height="40">
+                <UIElement.RenderTransform>
+                    <TranslateTransform x:Name="TranslateTransform" X="0" Y="0"/>
+                </UIElement.RenderTransform>
+            </Rectangle>
+        </Canvas>
     </Grid>
 </Page>
