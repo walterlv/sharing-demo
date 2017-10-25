@@ -131,6 +131,12 @@
       <Version>6.0.1</Version>
     </PackageReference>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Walterlv.Core\Walterlv.Core.csproj">
+      <Project>{d5ae13ee-7146-47de-abf2-78a1e94ab939}</Project>
+      <Name>Walterlv.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>
