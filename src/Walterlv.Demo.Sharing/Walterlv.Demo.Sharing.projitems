@@ -3,10 +3,10 @@
   <PropertyGroup>
     <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
     <HasSharedItems>true</HasSharedItems>
-    <SharedGUID>10d82b7f-3c4d-4ee3-8657-a1dc89c5ccab</SharedGUID>
+    <SharedGUID>228cbe7c-8504-47b2-a88b-e1d9eeb8b985</SharedGUID>
   </PropertyGroup>
   <PropertyGroup Label="Configuration">
-    <Import_RootNamespace>StoryboardDemo.Shared</Import_RootNamespace>
+    <Import_RootNamespace>Walterlv.Demo.Sharing</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
   </ItemGroup>

@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27004.2005
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Walterlv.Demo.Sharing", "src\Walterlv.Demo.Sharing\Walterlv.Demo.Sharing.shproj", "{228CBE7C-8504-47B2-A88B-E1D9EEB8B985}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_SulutionItems", "_SulutionItems", "{CF02BC25-EE9A-4C41-893F-06E7EC76845B}"
+	ProjectSection(SolutionItems) = preProject
+		.gitattributes = .gitattributes
+		.gitignore = .gitignore
+		LICENSE = LICENSE
+		README.md = README.md
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		src\Walterlv.Demo.Sharing\Walterlv.Demo.Sharing.projitems*{228cbe7c-8504-47b2-a88b-e1d9eeb8b985}*SharedItemsImports = 13
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E8847463-92FF-41DD-A7A3-0B729C0F3B93}
+	EndGlobalSection
+EndGlobal
