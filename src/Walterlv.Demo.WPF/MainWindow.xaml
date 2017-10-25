@@ -5,27 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Walterlv.Demo"
         mc:Ignorable="d" Title="星i"
-        local:WindowIconExtensions.ShowIcon="False" local:WindowBlur.IsEnabled="True"
-        Foreground="White" Background="#CF222222">
-    <Window.Template>
-        <ControlTemplate TargetType="Window">
-            <AdornerDecorator>
-                <Grid Margin="0 1 0 0" Background="{TemplateBinding Background}">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="29"/>
-                        <RowDefinition/>
-                    </Grid.RowDefinitions>
-                    <TextBlock Text="{TemplateBinding Title}" Margin="8 0" VerticalAlignment="Center"/>
-                    <Border Grid.Row="1" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
-                        <ContentPresenter/>
-                    </Border>
-                </Grid>
-            </AdornerDecorator>
-        </ControlTemplate>
-    </Window.Template>
-    <WindowChrome.WindowChrome>
-        <WindowChrome CornerRadius="0" GlassFrameThickness="-1" UseAeroCaptionButtons="True" NonClientFrameEdges="Left,Bottom,Right"/>
-    </WindowChrome.WindowChrome>
+        local:WindowIconExtensions.ShowIcon="False">
     <Grid>
         
     </Grid>
