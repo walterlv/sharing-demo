@@ -8,11 +8,11 @@ using System.Windows;
 // 控制。更改这些特性值可修改
 // 与程序集关联的信息。
 [assembly: AssemblyTitle("Walterlv.Demo.WPF")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("https://walterlv.github.io/sharing-demo")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Walterlv.Demo.WPF")]
-[assembly: AssemblyCopyright("Copyright ©  2017")]
+[assembly: AssemblyCompany("walterlv")]
+[assembly: AssemblyProduct("demo of walterlv")]
+[assembly: AssemblyCopyright("Copyright © walterlv 2017")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
