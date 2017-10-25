@@ -1,11 +1,14 @@
 ﻿#if WINDOWS_UWP
 using System;
+using System.Diagnostics;
 using Windows.Foundation;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Media.Animation;
 
 #else
 using System;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Animation;
@@ -23,8 +26,12 @@ namespace Walterlv.Demo.Pages
         }
 
 #if !WINDOWS_UWP
-        private Storyboard TranslateStoryboard => (Storyboard) FindResource("Storyboard.Translate");
+        private Storyboard TranslateStoryboard => (Storyboard)FindResource("Storyboard.Translate");
 #endif
+
+        private DoubleAnimation TranslateXAnimation => (DoubleAnimation) TranslateStoryboard.Children[0];
+
+        private DoubleAnimation TranslateYAnimation => (DoubleAnimation) TranslateStoryboard.Children[1];
 
         private readonly Random _random = new Random(DateTime.Now.Ticks.GetHashCode());
 
@@ -37,6 +44,7 @@ namespace Walterlv.Demo.Pages
 
         private void BeginStoryboard_Click(object sender, RoutedEventArgs e)
         {
+            Uwp_AnimateToRandomPosition();
             TranslateStoryboard.Begin();
             MoveToRandomPosition();
         }
@@ -44,6 +52,7 @@ namespace Walterlv.Demo.Pages
         private void BeginStoryboard2_Click(object sender, RoutedEventArgs e)
         {
             MoveToRandomPosition();
+            Uwp_AnimateToRandomPosition();
             TranslateStoryboard.Begin();
             MoveToRandomPosition();
         }
@@ -53,6 +62,15 @@ namespace Walterlv.Demo.Pages
             TranslateStoryboard.Pause();
         }
 
+        [Conditional("WINDOWS_UWP")]
+        private void Uwp_AnimateToRandomPosition()
+        {
+            var nextPosition = NextRandomPosition();
+            TranslateXAnimation.To = nextPosition.X;
+            TranslateYAnimation.To = nextPosition.Y;
+        }
+
+        [Conditional("WPF")]
         private void MoveToRandomPosition()
         {
             var nextPosition = NextRandomPosition();
