@@ -1,0 +1,18 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27004.2005
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "StoryboardDemo.Shared", "StoryboardDemo.Shared\StoryboardDemo.Shared.shproj", "{10D82B7F-3C4D-4EE3-8657-A1DC89C5CCAB}"
+EndProject
+Global
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		StoryboardDemo.Shared\StoryboardDemo.Shared.projitems*{10d82b7f-3c4d-4ee3-8657-a1dc89c5ccab}*SharedItemsImports = 13
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E8847463-92FF-41DD-A7A3-0B729C0F3B93}
+	EndGlobalSection
+EndGlobal
