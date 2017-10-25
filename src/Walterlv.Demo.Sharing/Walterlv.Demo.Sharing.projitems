@@ -9,5 +9,7 @@
     <Import_RootNamespace>Walterlv.Demo.Sharing</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)MainPage.xaml.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Pages\StoryboardPage.xaml.cs" />
   </ItemGroup>
 </Project>

@@ -61,8 +61,13 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="MainPage.xaml.cs">
+    <Compile Include="..\Walterlv.Demo.Sharing\MainPage.xaml.cs">
+      <Link>MainPage.xaml.cs</Link>
       <DependentUpon>MainPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="..\Walterlv.Demo.Sharing\Pages\StoryboardPage.xaml.cs">
+      <Link>Pages\StoryboardPage.xaml.cs</Link>
+      <DependentUpon>StoryboardPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Utils\WindowBlur.cs" />
     <Compile Include="Utils\WindowIconExtensions.cs" />
@@ -82,6 +87,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Pages\StoryboardPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
