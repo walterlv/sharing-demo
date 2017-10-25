@@ -6,7 +6,9 @@
         xmlns:local="clr-namespace:Walterlv.Demo"
         mc:Ignorable="d" Title="星i"
         local:WindowIconExtensions.ShowIcon="False">
-    <Grid>
-        
-    </Grid>
+    <Frame NavigationUIVisibility="Hidden">
+        <Frame.Content>
+            <local:MainPage/>
+        </Frame.Content>
+    </Frame>
 </Window>
