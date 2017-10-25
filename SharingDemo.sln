@@ -13,9 +13,27 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_SulutionItems", "_Sulution
 		README.md = README.md
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Walterlv.Demo.WPF", "src\Walterlv.Demo.WPF\Walterlv.Demo.WPF.csproj", "{1BCAD164-EF18-4A0B-A435-FBD5698EEC92}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Walterlv.Core", "src\Walterlv.Core\Walterlv.Core.csproj", "{D5AE13EE-7146-47DE-ABF2-78A1E94AB939}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		src\Walterlv.Demo.Sharing\Walterlv.Demo.Sharing.projitems*{228cbe7c-8504-47b2-a88b-e1d9eeb8b985}*SharedItemsImports = 13
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1BCAD164-EF18-4A0B-A435-FBD5698EEC92}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1BCAD164-EF18-4A0B-A435-FBD5698EEC92}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1BCAD164-EF18-4A0B-A435-FBD5698EEC92}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1BCAD164-EF18-4A0B-A435-FBD5698EEC92}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D5AE13EE-7146-47DE-ABF2-78A1E94AB939}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D5AE13EE-7146-47DE-ABF2-78A1E94AB939}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D5AE13EE-7146-47DE-ABF2-78A1E94AB939}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D5AE13EE-7146-47DE-ABF2-78A1E94AB939}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
