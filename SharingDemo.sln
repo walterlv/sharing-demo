@@ -19,6 +19,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Walterlv.Core", "src\Walter
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Walterlv.Demo.UWP", "src\Walterlv.Demo.UWP\Walterlv.Demo.UWP.csproj", "{DCD61BDB-2434-480A-A104-8D278AAE0F3B}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Walterlv.Localizations", "src\Walterlv.Localizations\Walterlv.Localizations.csproj", "{36179EF4-9B36-4531-AA59-55F098D622A9}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		src\Walterlv.Demo.Sharing\Walterlv.Demo.Sharing.projitems*{228cbe7c-8504-47b2-a88b-e1d9eeb8b985}*SharedItemsImports = 13
@@ -90,6 +92,22 @@ Global
 		{DCD61BDB-2434-480A-A104-8D278AAE0F3B}.Release|x86.ActiveCfg = Release|x86
 		{DCD61BDB-2434-480A-A104-8D278AAE0F3B}.Release|x86.Build.0 = Release|x86
 		{DCD61BDB-2434-480A-A104-8D278AAE0F3B}.Release|x86.Deploy.0 = Release|x86
+		{36179EF4-9B36-4531-AA59-55F098D622A9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{36179EF4-9B36-4531-AA59-55F098D622A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{36179EF4-9B36-4531-AA59-55F098D622A9}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{36179EF4-9B36-4531-AA59-55F098D622A9}.Debug|ARM.Build.0 = Debug|Any CPU
+		{36179EF4-9B36-4531-AA59-55F098D622A9}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{36179EF4-9B36-4531-AA59-55F098D622A9}.Debug|x64.Build.0 = Debug|Any CPU
+		{36179EF4-9B36-4531-AA59-55F098D622A9}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{36179EF4-9B36-4531-AA59-55F098D622A9}.Debug|x86.Build.0 = Debug|Any CPU
+		{36179EF4-9B36-4531-AA59-55F098D622A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{36179EF4-9B36-4531-AA59-55F098D622A9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{36179EF4-9B36-4531-AA59-55F098D622A9}.Release|ARM.ActiveCfg = Release|Any CPU
+		{36179EF4-9B36-4531-AA59-55F098D622A9}.Release|ARM.Build.0 = Release|Any CPU
+		{36179EF4-9B36-4531-AA59-55F098D622A9}.Release|x64.ActiveCfg = Release|Any CPU
+		{36179EF4-9B36-4531-AA59-55F098D622A9}.Release|x64.Build.0 = Release|Any CPU
+		{36179EF4-9B36-4531-AA59-55F098D622A9}.Release|x86.ActiveCfg = Release|Any CPU
+		{36179EF4-9B36-4531-AA59-55F098D622A9}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
