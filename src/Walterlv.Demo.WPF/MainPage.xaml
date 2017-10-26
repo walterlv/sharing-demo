@@ -8,13 +8,14 @@
       mc:Ignorable="d">
 
     <Grid>
-        <mah:SplitView IsPaneOpen="True" DisplayMode="Inline">
+        <mah:SplitView IsPaneOpen="True" DisplayMode="Inline" OpenPaneLength="160">
             <mah:SplitView.Pane>
-                <Grid>
-                    <ListView></ListView>
+                <Grid Background="#FFEEEEEE">
+<!--                    <ListView></ListView>-->
                 </Grid>
             </mah:SplitView.Pane>
             <Frame x:Name="MainFrame"/>
         </mah:SplitView>
     </Grid>
 </Page>
+
