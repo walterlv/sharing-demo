@@ -29,7 +29,10 @@
         <Button Grid.Row="0" Grid.Column="0" Content="平移至随机位置" Click="BeginStoryboard_Click"/>
         <Button Grid.Row="0" Grid.Column="1" Content="从随机位置平移" Click="BeginStoryboard2_Click"/>
         <Button Grid.Row="0" Grid.Column="2" Content="暂停" Click="PauseStoryboard_Click"/>
-        <Canvas x:Name="DisplayCanvas" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
+        <TextBlock Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" Grid.ColumnSpan="3"
+                   Text="walterlv" FontSize="64" FontWeight="Thin" Opacity="0.17"
+                   HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <Canvas x:Name="DisplayCanvas" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Background="Transparent">
             <Rectangle x:Name="DisplayShape" Fill="ForestGreen" Width="120" Height="40">
                 <UIElement.RenderTransform>
                     <TranslateTransform x:Name="TranslateTransform" X="0" Y="0"/>
