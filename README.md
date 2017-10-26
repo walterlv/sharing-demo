@@ -1,38 +1,12 @@
-# Markdown Metadata (mdmeta)
+# Sharing Demo
 
-Front matter is used in the front of markdown file to indicate some metadata of a markdown file. It uses YAML format to specify values of the markdown file.
+Sharing Demo is a demo collection of my persional experiments. It is written in C# using multiple platforms or frameworks.
 
-Markdown Metadata (also called `mdmeta`) is a tool to generate and manage the front matter metadata. It is a cross-platform console app based on .Net Core 2.0 and will be integrated within popular editors. Maybe some UI which is used for editing configs will appear in the future.
+## Related Links
 
-## Getting Started with `mdmeta`
-
-Official Starting Page: [https://walterlv.github.io/mdmeta/](https://walterlv.github.io/mdmeta/)
-
-- How to use mdmeta
-  - Install official releases
-  - Documentation
-  - Supported OS versions
-- Roadmap
-- Releases
-
-## How to Engage, Contribute and Provide Feedback
-
-Some of the best ways to contribute are to try things out, file bugs, join in design conversations, and fix issues.
-
-If you have a question or idea, [file a new issue](https://github.com/walterlv/markdown-metadata/issues/new).
-
-### Issue Guide
-
-This section is **in progress**.
-
-### Contributing Guide
-
-This section is **in progress**.
+- Storyboard Demo
+  - [WPF 和 UWP 中，不用设置 From 或 To，Storyboard 即拥有更灵活的动画控制](https://walterlv.github.io/post/using-storyboard-without-from-or-to.html)
 
 ## License
 
-Markdown Metadata (mdmeta) is licensed under the [MIT license](./LICENSE).
-
-## Build & Test Status
-
-This section is **in progress**.
+Sharing Demo is licensed under the [MIT license](./LICENSE).
