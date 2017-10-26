@@ -69,6 +69,7 @@
       <Link>Pages\StoryboardPage.xaml.cs</Link>
       <DependentUpon>StoryboardPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Utils\DispatcherContainer.cs" />
     <Compile Include="Utils\WindowBlur.cs" />
     <Compile Include="Utils\WindowIconExtensions.cs" />
     <Page Include="MainPage.xaml">
