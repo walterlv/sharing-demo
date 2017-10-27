@@ -71,9 +71,9 @@
       <Link>Pages\StoryboardPage.xaml.cs</Link>
       <DependentUpon>StoryboardPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Utils\DispatcherContainer.cs" />
-    <Compile Include="Utils\WindowBlur.cs" />
-    <Compile Include="Utils\WindowIconExtensions.cs" />
+    <Compile Include="Utils\Threading\DispatcherContainer.cs" />
+    <Compile Include="Utils\Windows\WindowBlur.cs" />
+    <Compile Include="Utils\Windows\WindowIconExtensions.cs" />
     <Page Include="MainPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
