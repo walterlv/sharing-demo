@@ -24,6 +24,20 @@ namespace Walterlv.Demo
 
         public UIElement Child { get; private set; }
 
+        public async Task SetChildAsync<T>(Dispatcher dispatcher = null)
+            where T : UIElement, new()
+        {
+            var child = await CreateElementAsync<T>(dispatcher);
+            await SetChildAsync(child);
+        }
+
+        public async Task SetChildAsync<T>(Func<T> @new, Dispatcher dispatcher = null)
+            where T : UIElement
+        {
+            var child = await CreateElementAsync(@new, dispatcher);
+            await SetChildAsync(child);
+        }
+
         public async Task SetChildAsync(UIElement value)
         {
             if (_isUpdatingChild)
