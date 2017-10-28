@@ -5,7 +5,7 @@ Sharing Demo is a demo collection of my persional experiments. It is written in 
 ## Related Links
 
 - Storyboard Demo
-  - [WPF ºÍ UWP ÖĞ£¬²»ÓÃÉèÖÃ From »ò To£¬Storyboard ¼´ÓµÓĞ¸üÁé»îµÄ¶¯»­¿ØÖÆ](https://walterlv.github.io/post/using-storyboard-without-from-or-to.html)
+  - [WPF å’Œ UWP ä¸­ï¼Œä¸ç”¨è®¾ç½® From æˆ– Toï¼ŒStoryboard å³æ‹¥æœ‰æ›´çµæ´»çš„åŠ¨ç”»æ§åˆ¶](https://walterlv.github.io/post/using-storyboard-without-from-or-to.html)
 
 ## License
 
