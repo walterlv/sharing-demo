@@ -72,6 +72,7 @@
       <DependentUpon>StoryboardPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Utils\Threading\DispatcherContainer.cs" />
+    <Compile Include="Utils\Threading\VisualTargetPresentationSource.cs" />
     <Compile Include="Utils\Windows\WindowBlur.cs" />
     <Compile Include="Utils\Windows\WindowIconExtensions.cs" />
     <Page Include="MainPage.xaml">
@@ -110,6 +111,8 @@
       <Name>Walterlv.Core</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="View\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
