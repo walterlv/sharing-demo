@@ -1,11 +1,10 @@
 ﻿using System;
-using System.Runtime.ExceptionServices;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Markup;
 using System.Windows.Media;
 using System.Windows.Threading;
+using MahApps.Metro.Controls;
 using Walterlv.Annotations;
 
 namespace Walterlv.Demo
@@ -18,23 +17,26 @@ namespace Walterlv.Demo
             _hostVisual = new HostVisual();
         }
 
-        private bool _isUpdatingChild;
         private readonly HostVisual _hostVisual;
         private VisualTargetPresentationSource _targetSource;
 
-        public UIElement Child { get; private set; }
+        #region Child
 
-        public async Task SetChildAsync<T>(Dispatcher dispatcher = null)
+        private bool _isUpdatingChild;
+        [CanBeNull] private UIElement _child;
+        public UIElement Child => _child;
+
+        public async Task SetChildAsync<T>([CanBeNull] Dispatcher dispatcher = null)
             where T : UIElement, new()
         {
-            var child = await CreateElementAsync<T>(dispatcher);
-            await SetChildAsync(child);
+            await SetChildAsync(() => new T(), dispatcher);
         }
 
-        public async Task SetChildAsync<T>(Func<T> @new, Dispatcher dispatcher = null)
+        public async Task SetChildAsync<T>(Func<T> @new, [CanBeNull] Dispatcher dispatcher = null)
             where T : UIElement
         {
-            var child = await CreateElementAsync(@new, dispatcher);
+            dispatcher = dispatcher ?? await UIDispatcher.RunNewAsync($"{typeof(T).Name}");
+            var child = await dispatcher.InvokeAsync(@new);
             await SetChildAsync(child);
         }
 
@@ -57,7 +59,7 @@ namespace Walterlv.Demo
 
             async Task SetChildAsync()
             {
-                var oldChild = Child;
+                var oldChild = _child;
                 var visualTarget = _targetSource;
 
                 if (Equals(oldChild, value))
@@ -70,7 +72,7 @@ namespace Walterlv.Demo
                     await visualTarget.Dispatcher.InvokeAsync(visualTarget.Dispose);
                 }
 
-                Child = value;
+                _child = value;
 
                 if (value == null)
                 {
@@ -91,6 +93,10 @@ namespace Walterlv.Demo
             }
         }
 
+        #endregion
+
+        #region Tree & Layout
+
         protected override Visual GetVisualChild(int index)
         {
             if (index != 0)
@@ -98,11 +104,11 @@ namespace Walterlv.Demo
             return _hostVisual;
         }
 
-        protected override int VisualChildrenCount => Child != null ? 1 : 0;
+        protected override int VisualChildrenCount => _child != null ? 1 : 0;
 
         protected override Size MeasureOverride(Size availableSize)
         {
-            var child = Child;
+            var child = _child;
             if (child == null)
                 return default(Size);
 
@@ -115,7 +121,7 @@ namespace Walterlv.Demo
 
         protected override Size ArrangeOverride(Size finalSize)
         {
-            var child = Child;
+            var child = _child;
             if (child == null)
                 return finalSize;
 
@@ -126,63 +132,29 @@ namespace Walterlv.Demo
             return finalSize;
         }
 
-        public static async Task<T> CreateElementAsync<T>(Dispatcher dispatcher = null)
-            where T : Visual, new()
+        #endregion
+
+        #region HitTest
+
+        protected override HitTestResult HitTestCore(PointHitTestParameters hitTestParameters)
         {
-            return await CreateElementAsync(() => new T(), dispatcher);
+            var child = _child;
+            if (child == null)
+                return null;
+
+            var element = _child.Invoke(() => _child.InputHitTest(hitTestParameters.HitPoint));
+            if (element == null)
+            {
+                return null;
+            }
+            return new PointHitTestResult(this, hitTestParameters.HitPoint);
         }
 
-        public static async Task<T> CreateElementAsync<T>(
-            [NotNull] Func<T> @new, Dispatcher dispatcher = null)
-            where T : Visual
+        protected override GeometryHitTestResult HitTestCore(GeometryHitTestParameters hitTestParameters)
         {
-            if (@new == null)
-                throw new ArgumentNullException(nameof(@new));
-
-            var element = default(T);
-            if (dispatcher == null)
-            {
-                Exception exception = null;
-                var resetEvent = new AutoResetEvent(false);
-                var thread = new Thread(() =>
-                {
-                    try
-                    {
-                        SynchronizationContext.SetSynchronizationContext(
-                            new DispatcherSynchronizationContext(Dispatcher.CurrentDispatcher));
-                        element = @new();
-                        resetEvent.Set();
-                        Dispatcher.Run();
-                    }
-                    catch (Exception ex)
-                    {
-                        exception = ex;
-                    }
-                })
-                {
-                    Name = $"{typeof(T).Name}",
-                    IsBackground = true,
-                };
-                thread.SetApartmentState(ApartmentState.STA);
-                thread.Start();
-                await Task.Run(() =>
-                {
-                    resetEvent.WaitOne();
-                    resetEvent.Dispose();
-                });
-                if (exception != null)
-                {
-                    ExceptionDispatchInfo.Capture(exception).Throw();
-                }
-            }
-            else
-            {
-                await dispatcher.InvokeAsync(() =>
-                {
-                    element = @new();
-                });
-            }
-            return element;
+            return base.HitTestCore(hitTestParameters);
         }
+
+        #endregion
     }
 }

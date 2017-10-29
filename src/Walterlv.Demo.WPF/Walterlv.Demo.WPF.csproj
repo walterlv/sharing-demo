@@ -72,6 +72,7 @@
       <DependentUpon>StoryboardPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Utils\Threading\DispatcherContainer.cs" />
+    <Compile Include="Utils\Threading\UIDispatcher.cs" />
     <Compile Include="Utils\Threading\VisualTargetPresentationSource.cs" />
     <Compile Include="Utils\Windows\WindowBlur.cs" />
     <Compile Include="Utils\Windows\WindowIconExtensions.cs" />
