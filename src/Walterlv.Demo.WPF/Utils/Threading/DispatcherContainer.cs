@@ -4,7 +4,6 @@ using System.Windows;
 using System.Windows.Markup;
 using System.Windows.Media;
 using System.Windows.Threading;
-using MahApps.Metro.Controls;
 using Walterlv.Annotations;
 
 namespace Walterlv.Demo
@@ -136,25 +135,28 @@ namespace Walterlv.Demo
 
         #region HitTest
 
-        protected override HitTestResult HitTestCore(PointHitTestParameters hitTestParameters)
+        protected override HitTestResult HitTestCore(PointHitTestParameters htp)
         {
             var child = _child;
-            if (child == null)
-                return null;
 
-            var element = _child.Invoke(() => _child.InputHitTest(hitTestParameters.HitPoint));
+            var element = child?.Dispatcher.Invoke(() =>
+            {
+                double offsetX = 0d, offsetY = 0d;
+                if (child is FrameworkElement fe)
+                {
+                    offsetX = fe.Margin.Left;
+                    offsetY = fe.Margin.Top;
+                }
+                return _child.InputHitTest(new Point(htp.HitPoint.X - offsetX, htp.HitPoint.Y - offsetY));
+            }, DispatcherPriority.Normal);
             if (element == null)
             {
                 return null;
             }
-            return new PointHitTestResult(this, hitTestParameters.HitPoint);
-        }
 
-        protected override GeometryHitTestResult HitTestCore(GeometryHitTestParameters hitTestParameters)
-        {
-            return base.HitTestCore(hitTestParameters);
+            return new PointHitTestResult(this, htp.HitPoint);
         }
-
+        
         #endregion
     }
 }
