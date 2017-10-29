@@ -71,6 +71,9 @@
       <Link>Pages\StoryboardPage.xaml.cs</Link>
       <DependentUpon>StoryboardPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="..\Walterlv.Demo.Sharing\Utils\Threading\DispatcherAsyncOperation.cs">
+      <Link>Utils\Threading\DispatcherAsyncOperation.cs</Link>
+    </Compile>
     <Compile Include="Utils\Threading\DispatcherContainer.cs" />
     <Compile Include="Utils\Threading\UIDispatcher.cs" />
     <Compile Include="Utils\Threading\VisualTargetPresentationSource.cs" />

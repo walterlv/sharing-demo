@@ -86,11 +86,11 @@ namespace Walterlv.Demo.Utils.Threading
         {
             if (IsCompleted)
             {
-                _continuation.Invoke();
+                _continuation?.Invoke();
             }
             else
             {
-                _continuation = continuation;
+                _continuation += continuation;
             }
         }
 
@@ -105,7 +105,10 @@ namespace Walterlv.Demo.Utils.Threading
             Result = result;
             _exception = exception;
             IsCompleted = true;
-            Dispatcher.InvokeAsync(_continuation, _priority);
+            if (_continuation != null)
+            {
+                Dispatcher.InvokeAsync(_continuation, _priority);
+            }
         }
 
         /// <summary>
