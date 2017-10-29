@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.ExceptionServices;
 using System.Threading;
 using System.Windows.Threading;
 using Walterlv.Annotations;
@@ -6,24 +7,54 @@ using Walterlv.Demo.Utils.Threading;
 
 namespace Walterlv.Demo
 {
+    /// <summary>
+    /// 包含扩展 <see cref="Dispatcher"/> 的一些方法。
+    /// </summary>
     public static class UIDispatcher
     {
+        /// <summary>
+        /// 创建一个可以运行 <see cref="Dispatcher"/> 的后台 UI 线程，并返回这个线程的调度器 <see cref="Dispatcher"/>。
+        /// </summary>
+        /// <param name="name">线程的名称，如果不指定，将使用 “BackgroundUI”。</param>
+        /// <returns>一个可以异步等待的 <see cref="Dispatcher"/>。</returns>
         public static DispatcherAsyncOperation<Dispatcher> RunNewAsync([CanBeNull] string name = null)
         {
-            var awaitable = DispatcherAsyncOperation<Dispatcher>.Create(out var reportResult);
+            // 创建一个可等待的异步操作。
+            var awaiter = DispatcherAsyncOperation<Dispatcher>.Create(out var reportResult);
+
+            // 记录原线程关联的 Dispatcher，以便在意外时报告异常。
+            var originDispatcher = Dispatcher.CurrentDispatcher;
+
+            // 创建后台线程。
             var thread = new Thread(() =>
             {
                 try
                 {
+                    // 获取关联此后台线程的 Dispatcher。
                     var dispatcher = Dispatcher.CurrentDispatcher;
+
+                    // 设置此线程的 SynchronizationContext，以便此线程上 await 之后能够返回此线程。
                     SynchronizationContext.SetSynchronizationContext(
                         new DispatcherSynchronizationContext(dispatcher));
+
+                    // 报告 Dispatcher 已创建完毕，使用 await 异步等待 Dispatcher 创建的地方可以继续执行了。
                     reportResult(dispatcher, null);
+                }
+                catch (Exception ex)
+                {
+                    // 报告创建过程中发生的异常。
+                    reportResult(null, ex);
+                }
+
+                try
+                {
+                    // 启动 Dispatcher，开始此线程上消息的调度。
                     Dispatcher.Run();
                 }
                 catch (Exception ex)
                 {
-                    reportResult(null, ex);
+                    // 如果新的 Dispatcher 线程上出现了未处理的异常，则将其抛到原调用线程上。
+                    originDispatcher.InvokeAsync(() => ExceptionDispatchInfo.Capture(ex).Throw());
                 }
             })
             {
@@ -32,7 +63,7 @@ namespace Walterlv.Demo
             };
             thread.SetApartmentState(ApartmentState.STA);
             thread.Start();
-            return awaitable;
+            return awaiter;
         }
     }
 }
