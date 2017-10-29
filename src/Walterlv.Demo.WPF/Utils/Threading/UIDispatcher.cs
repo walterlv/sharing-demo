@@ -43,9 +43,11 @@ namespace Walterlv.Demo
                 catch (Exception ex)
                 {
                     // 报告创建过程中发生的异常。
+                    // 不需要担心其内部发生的异常，因为会被异步状态机捕获后重新在原线程上抛出。
                     reportResult(null, ex);
                 }
 
+                // 此线程的以下代码将脱离异步状态机的控制，需要自己处理异常。
                 try
                 {
                     // 启动 Dispatcher，开始此线程上消息的调度。
