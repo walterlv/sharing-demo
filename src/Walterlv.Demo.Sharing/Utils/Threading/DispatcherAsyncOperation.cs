@@ -45,7 +45,7 @@ namespace Walterlv.Demo.Utils.Threading
         public T Result { get; private set; }
 
         /// <summary>
-        /// 获取此异步等待操作的返回值，此方法会被编译器在 await 自动调用以获取返回值。
+        /// 获取此异步等待操作的返回值，此方法会被编译器在 await 结束时自动调用以获取返回值。
         /// 与 <see cref="System.Threading.Tasks.Task{TResult}"/> 不同的是，
         /// 如果操作没有完成，此实例会返回 <typeparamref name="T"/> 的默认值，而不是阻塞线程直至任务完成。
         /// 但是，如果异步操作中发生了异常，调用此方法会抛出这个异常。
