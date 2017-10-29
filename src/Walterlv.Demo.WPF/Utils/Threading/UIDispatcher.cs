@@ -2,7 +2,7 @@
 using System.Threading;
 using System.Windows.Threading;
 using Walterlv.Annotations;
-using Walterlv.Demo.Sharing.Utils.Threading;
+using Walterlv.Demo.Utils.Threading;
 
 namespace Walterlv.Demo
 {

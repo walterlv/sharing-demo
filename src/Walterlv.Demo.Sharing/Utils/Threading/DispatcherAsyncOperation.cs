@@ -4,7 +4,7 @@ using System.Windows.Threading;
 using Walterlv.Annotations;
 using Walterlv.Threading;
 
-namespace Walterlv.Demo.Sharing.Utils.Threading
+namespace Walterlv.Demo.Utils.Threading
 {
     public class DispatcherAsyncOperation<T> : DispatcherObject,
         IAwaitable<DispatcherAsyncOperation<T>, T>, IAwaiter<T>
