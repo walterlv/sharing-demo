@@ -2,7 +2,7 @@ using System.Runtime.CompilerServices;
 
 namespace Walterlv.Threading
 {
-    internal interface IAwaitable<out TAwaiter> where TAwaiter : IAwaiter
+    public interface IAwaitable<out TAwaiter> where TAwaiter : IAwaiter
     {
         TAwaiter GetAwaiter();
     }
@@ -12,14 +12,14 @@ namespace Walterlv.Threading
         TAwaiter GetAwaiter();
     }
 
-    internal interface IAwaiter : INotifyCompletion
+    public interface IAwaiter : INotifyCompletion
     {
         bool IsCompleted { get; }
 
         void GetResult();
     }
 
-    internal interface ICriticalAwaiter : IAwaiter, ICriticalNotifyCompletion
+    public interface ICriticalAwaiter : IAwaiter, ICriticalNotifyCompletion
     {
     }
 
