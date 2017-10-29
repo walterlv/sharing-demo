@@ -1,38 +1,29 @@
 ﻿using System;
-using System.Runtime.ExceptionServices;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Threading;
 using Walterlv.Annotations;
+using Walterlv.Demo.Sharing.Utils.Threading;
 
 namespace Walterlv.Demo
 {
     public static class UIDispatcher
     {
-        public static async Task<Dispatcher> RunNewAsync(string name = null)
+        public static DispatcherAsyncOperation<Dispatcher> RunNewAsync([CanBeNull] string name = null)
         {
-            return await Task.Run(() => RunNew(name));
-        }
-
-        private static Dispatcher RunNew([CanBeNull] string name = null)
-        {
-            Dispatcher dispatcher = null;
-            Exception exception = null;
-            var resetEvent = new AutoResetEvent(false);
+            var awaitable = DispatcherAsyncOperation<Dispatcher>.Create(out var reportResult);
             var thread = new Thread(() =>
             {
                 try
                 {
-                    dispatcher = Dispatcher.CurrentDispatcher;
+                    var dispatcher = Dispatcher.CurrentDispatcher;
                     SynchronizationContext.SetSynchronizationContext(
                         new DispatcherSynchronizationContext(dispatcher));
-                    // ReSharper disable once AccessToDisposedClosure
-                    resetEvent.Set();
+                    reportResult(dispatcher, null);
                     Dispatcher.Run();
                 }
                 catch (Exception ex)
                 {
-                    exception = ex;
+                    reportResult(null, ex);
                 }
             })
             {
@@ -41,13 +32,7 @@ namespace Walterlv.Demo
             };
             thread.SetApartmentState(ApartmentState.STA);
             thread.Start();
-            resetEvent.WaitOne();
-            resetEvent.Dispose();
-            if (exception != null)
-            {
-                ExceptionDispatchInfo.Capture(exception).Throw();
-            }
-            return dispatcher;
+            return awaitable;
         }
     }
 }

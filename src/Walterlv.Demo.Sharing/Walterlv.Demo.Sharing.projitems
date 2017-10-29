@@ -11,5 +11,6 @@
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)MainPage.xaml.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Pages\StoryboardPage.xaml.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utils\Threading\DispatcherAsyncOperation.cs" />
   </ItemGroup>
 </Project>
