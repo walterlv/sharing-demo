@@ -86,10 +86,14 @@ namespace Walterlv.Demo.Utils.Threading
         {
             if (IsCompleted)
             {
-                _continuation?.Invoke();
+                // 如果 await 开始时任务已经执行完成，则直接执行 await 后面的代码。
+                // 注意，即便 _continuation 有值，也无需关心，因为报告结束的时候就会将其执行。
+                continuation?.Invoke();
             }
             else
             {
+                // 当使用多个 await 关键字等待此同一个 awaitable 实例时，此 OnCompleted 方法会被多次执行。
+                // 当任务真正结束后，需要将这些所有的 await 后面的代码都执行。
                 _continuation += continuation;
             }
         }
@@ -105,8 +109,12 @@ namespace Walterlv.Demo.Utils.Threading
             Result = result;
             _exception = exception;
             IsCompleted = true;
+
+            // _continuation 可能为 null，说明任务已经执行完毕，但没有任何一处 await 了这个任务。
             if (_continuation != null)
             {
+                // 无论此方法执行时所在线程关联的 Dispatcher 是否等于此类型创建时的 Dispatcher；
+                // 都 Invoke 到创建时的 Dispatcher 上，以便对当前执行上下文造成影响在不同线程执行下都一致（如异常）。
                 Dispatcher.InvokeAsync(_continuation, _priority);
             }
         }
