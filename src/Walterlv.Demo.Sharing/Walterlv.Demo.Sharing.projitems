@@ -13,4 +13,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Pages\StoryboardPage.xaml.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utils\Threading\DispatcherAsyncOperation.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="$(MSBuildThisFileDirectory)Shaders\" />
+  </ItemGroup>
 </Project>
