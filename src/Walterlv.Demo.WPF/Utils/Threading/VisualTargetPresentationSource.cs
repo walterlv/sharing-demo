@@ -59,7 +59,6 @@ namespace Walterlv.Demo
                     rootFe.SizeChanged += root_SizeChanged;
                     rootFe.DataContext = _dataContext;
 
-                    // HACK!
                     if (_propertyName != null)
                     {
                         var myBinding = new Binding(_propertyName)
@@ -107,7 +106,6 @@ namespace Walterlv.Demo
             }
         }
 
-        // HACK!
         public string PropertyName
         {
             get => _propertyName;
