@@ -75,10 +75,14 @@
       <Link>Utils\Threading\DispatcherAsyncOperation.cs</Link>
     </Compile>
     <Compile Include="Utils\Threading\DispatcherContainer.cs" />
+    <Compile Include="Utils\Threading\InteractiveVisualTarget.cs" />
     <Compile Include="Utils\Threading\UIDispatcher.cs" />
     <Compile Include="Utils\Threading\VisualTargetPresentationSource.cs" />
     <Compile Include="Utils\Windows\WindowBlur.cs" />
     <Compile Include="Utils\Windows\WindowIconExtensions.cs" />
+    <Compile Include="Pages\MultiThreadPage.xaml.cs">
+      <DependentUpon>MultiThreadPage.xaml</DependentUpon>
+    </Compile>
     <Page Include="MainPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -96,6 +100,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Pages\StoryboardPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\MultiThreadPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

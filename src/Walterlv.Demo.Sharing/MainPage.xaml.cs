@@ -7,6 +7,7 @@ using System;
 using System.Windows;
 using System.Windows.Controls;
 using Walterlv.Demo.Pages;
+
 #endif
 
 namespace Walterlv.Demo
@@ -25,7 +26,7 @@ namespace Walterlv.Demo
 #if WINDOWS_UWP
             MainFrame.Navigate(typeof(StoryboardPage));
 #else
-            MainFrame.Navigate(new StoryboardPage());
+            MainFrame.Navigate(new MultiThreadPage());
 #endif
         }
     }
