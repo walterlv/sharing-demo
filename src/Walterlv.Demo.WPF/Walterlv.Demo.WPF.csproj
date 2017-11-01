@@ -75,7 +75,7 @@
       <Link>Utils\Threading\DispatcherAsyncOperation.cs</Link>
     </Compile>
     <Compile Include="Utils\Threading\DispatcherContainer.cs" />
-    <Compile Include="Utils\Threading\InteractiveVisualTarget.cs" />
+    <Compile Include="Utils\Threading\InteractiveHostVisual.cs" />
     <Compile Include="Utils\Threading\UIDispatcher.cs" />
     <Compile Include="Utils\Threading\VisualTargetPresentationSource.cs" />
     <Compile Include="Utils\Windows\WindowBlur.cs" />

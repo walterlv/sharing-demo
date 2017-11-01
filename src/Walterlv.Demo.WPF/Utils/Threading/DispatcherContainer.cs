@@ -13,7 +13,7 @@ namespace Walterlv.Demo
     {
         public DispatcherContainer()
         {
-            _hostVisual = new HostVisual();
+            _hostVisual = new InteractiveHostVisual();
         }
 
         private readonly HostVisual _hostVisual;
