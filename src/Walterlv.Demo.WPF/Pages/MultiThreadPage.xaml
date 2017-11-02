@@ -40,5 +40,6 @@
             </Rectangle.Effect>
         </Rectangle>
         <local:DispatcherContainer x:Name="TargetHost"/>
+        <Grid x:Name="LoadUnloadTestingPanel"/>
     </Grid>
 </Page>
