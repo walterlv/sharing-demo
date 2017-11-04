@@ -4,6 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Walterlv.Demo.Pages"
+      xmlns:media="clr-namespace:Walterlv.Demo.Media"
       mc:Ignorable="d" Title="StoryboardPage">
     <FrameworkElement.Resources>
         <CircleEase x:Key="EasingFunction.Translate" EasingMode="EaseOut"/>
@@ -37,6 +38,7 @@
                     <TranslateTransform x:Name="TranslateTransform" X="0" Y="0"/>
                 </UIElement.RenderTransform>
             </Rectangle>
+            <TextBlock Foreground="{media:LuminancedForeground}" Text="我是前景"/>
         </Canvas>
     </Grid>
 </Page>

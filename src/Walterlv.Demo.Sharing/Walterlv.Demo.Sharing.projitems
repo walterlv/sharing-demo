@@ -15,5 +15,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)Shaders\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Utils\Media\" />
   </ItemGroup>
 </Project>

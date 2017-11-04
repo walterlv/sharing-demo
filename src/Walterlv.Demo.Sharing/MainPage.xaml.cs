@@ -26,7 +26,7 @@ namespace Walterlv.Demo
 #if WINDOWS_UWP
             MainFrame.Navigate(typeof(StoryboardPage));
 #else
-            MainFrame.Navigate(new MultiThreadPage());
+            MainFrame.Navigate(new StoryboardPage());
 #endif
         }
     }
