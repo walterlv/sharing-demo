@@ -36,17 +36,14 @@ namespace Walterlv.Demo.Media
         /// <returns>转换后的颜色。</returns>
         public Color Convert(Color color)
         {
-            var luminance = GetLuminanceLevel(color);
+            var luminance = GetGrayLevel(color);
             return (LuminanceToColor ?? ReverseBackgroundToWhiteBlackForeground.LuminanceToColor)(luminance);
         }
 
         /// <summary>
-        /// 获取一个颜色的亮度等级，并以 0~1 之间的小数表示。
-        /// 通常需要在某一背景颜色上显示一个看得清的前景色时需要用到此数值，大于 0.5 表示此颜色较亮，小于 0.5 表示此颜色较暗。
+        /// 获取一个颜色的人眼感知亮度，并以 0~1 之间的小数表示。
         /// </summary>
-        /// <param name="color">要获取亮度等级的颜色。</param>
-        /// <returns>该颜色的亮度等级。</returns>
-        private static double GetLuminanceLevel(Color color)
+        private static double GetGrayLevel(Color color)
         {
             return (0.299 * color.R + 0.587 * color.G + 0.114 * color.B) / 255;
         }

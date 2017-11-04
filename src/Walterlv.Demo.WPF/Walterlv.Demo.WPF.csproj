@@ -81,7 +81,7 @@
       <Link>Utils\Threading\DispatcherAsyncOperation.cs</Link>
     </Compile>
     <Compile Include="Program.cs" />
-    <Compile Include="Utils\Media\LuminancedForegroundExtension.cs" />
+    <Compile Include="Utils\Media\LuminanceForegroundExtension.cs" />
     <Compile Include="Utils\Xaml\DependencyMarkupExtension.cs" />
     <Compile Include="Utils\Media\LuminanceReverseColor.cs" />
     <Compile Include="Utils\Threading\DispatcherContainer.cs" />

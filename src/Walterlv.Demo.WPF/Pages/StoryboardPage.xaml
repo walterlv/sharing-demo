@@ -33,12 +33,12 @@
                 Text="walterlv" FontSize="64" FontWeight="Thin" Opacity="0.17"
                 HorizontalAlignment="Center" VerticalAlignment="Center"/>
         <Canvas x:Name="DisplayCanvas" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
-            <Rectangle x:Name="DisplayShape" Fill="ForestGreen" Width="120" Height="40">
+            <Rectangle x:Name="DisplayShape" Fill="YellowGreen" Width="120" Height="40">
                 <UIElement.RenderTransform>
                     <TranslateTransform x:Name="TranslateTransform" X="0" Y="0"/>
                 </UIElement.RenderTransform>
             </Rectangle>
-            <TextBlock Foreground="{media:LuminancedForeground}" Text="我是前景"/>
+            <TextBlock Foreground="{media:LuminanceForeground}" Text="我是前景 by walterlv"/>
         </Canvas>
     </Grid>
 </Page>

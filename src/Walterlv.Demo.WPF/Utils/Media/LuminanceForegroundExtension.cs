@@ -9,11 +9,13 @@ namespace Walterlv.Demo.Media
     /// <summary>
     /// 按背景色的亮度取能够在此背景色上清晰显示的前景色。
     /// </summary>
-    public class LuminancedForegroundExtension : DependencyMarkupExtension
+    public class LuminanceForegroundExtension : DependencyMarkupExtension
     {
         public string BackgroundTargetName { get; set; }
 
         public ColorLuminanceConverter Converter { get; set; }
+
+        public Color Background { get; set; }
 
         protected override object ProvideValue(FrameworkElement target, DependencyProperty property)
         {
@@ -32,9 +34,9 @@ namespace Walterlv.Demo.Media
         /// <returns>找到的背景色</returns>
         private Color FindSourceColor(FrameworkElement origin)
         {
-            var @object = origin.FindName("BackgroundTargetName") as DependencyObject;
-            @object.GetValue(Panel.BackgroundProperty);
-            return Colors.ForestGreen;
+//            var @object = origin.FindName("BackgroundTargetName") as DependencyObject;
+//            @object.GetValue(Panel.BackgroundProperty);
+            return Background;
         }
 
         /// <summary>
