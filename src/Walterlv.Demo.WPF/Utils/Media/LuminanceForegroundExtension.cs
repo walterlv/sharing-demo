@@ -2,7 +2,12 @@
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Markup;
 using System.Windows.Media;
+using System.Windows.Shapes;
+using Walterlv.Demo.Converters;
+using Walterlv.Demo.Xaml;
 
 namespace Walterlv.Demo.Media
 {
@@ -11,19 +16,28 @@ namespace Walterlv.Demo.Media
     /// </summary>
     public class LuminanceForegroundExtension : DependencyMarkupExtension
     {
-        public string BackgroundTargetName { get; set; }
+        public string TargetName { get; set; }
 
         public ColorLuminanceConverter Converter { get; set; }
-
-        public Color Background { get; set; }
 
         protected override object ProvideValue(FrameworkElement target, DependencyProperty property)
         {
             if (CreatorDictionary.TryGetValue(property.PropertyType, out var create))
             {
-                var color = FindSourceColor(target);
-                var reversedColor = ReverseBackgroundColor(color);
-                return create(reversedColor);
+                var (source, path) = FindSource(target);
+                if (source != null && path != null)
+                {
+                    return new Binding(path)
+                    {
+                        Source = source,
+                        Mode = BindingMode.OneWay,
+                        Converter = new FuncConverter
+                        {
+                            Convert = sourceValue =>
+                                create(ReverseBackgroundColor(((SolidColorBrush) sourceValue).Color)),
+                        },
+                    };
+                }
             }
             return property.DefaultMetadata.DefaultValue;
         }
@@ -32,11 +46,44 @@ namespace Walterlv.Demo.Media
         /// 找到此前景色获取所需的背景色。
         /// </summary>
         /// <returns>找到的背景色</returns>
-        private Color FindSourceColor(FrameworkElement origin)
+        private (object source, string property) FindSource(FrameworkElement origin)
         {
-//            var @object = origin.FindName("BackgroundTargetName") as DependencyObject;
-//            @object.GetValue(Panel.BackgroundProperty);
-            return Background;
+            if (!(origin.FindName(TargetName) is DependencyObject @object))
+            {
+                //throw new ArgumentException($"是因为找不到 {TargetName} 才打下划线的", origin.FindName(TargetName)?.ToString());
+                return (null, null);
+            }
+            var (property, brush) = TryGetPropertyValue<Brush>(@object, Panel.BackgroundProperty, Shape.FillProperty);
+            if (brush is SolidColorBrush)
+            {
+                return (@object, property.Name);
+            }
+            return (null, null);
+        }
+
+        /// <summary>
+        /// 按照 <paramref name="properties"/> 参数列表中指定的各种依赖项属性依次尝试从 <paramref name="d"/> 中获取值。
+        /// 一旦获取到，则返回此时用于获取值的依赖属性和其值。
+        /// </summary>
+        /// <typeparam name="T">要获取的依赖属性值的类型，如果不是此类型，即便获取到了值，也认为未获取到。</typeparam>
+        /// <param name="d">要查找属性的依赖对象。</param>
+        /// <param name="properties">要查找的依赖项属性数组。</param>
+        /// <returns>查找到值的依赖属性和其对应的值。</returns>
+        private (DependencyProperty property, T value) TryGetPropertyValue<T>(
+            DependencyObject d, params DependencyProperty[] properties)
+        {
+            if (d == null) throw new ArgumentNullException(nameof(d));
+            if (properties == null) throw new ArgumentNullException(nameof(properties));
+
+            foreach (var property in properties)
+            {
+                var value = d.GetValue(property);
+                if (value is T t)
+                {
+                    return (property, t);
+                }
+            }
+            return (null, default(T));
         }
 
         /// <summary>

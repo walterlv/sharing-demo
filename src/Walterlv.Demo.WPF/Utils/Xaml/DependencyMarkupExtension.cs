@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Windows;
+using System.Windows.Data;
 using System.Windows.Markup;
 
-namespace Walterlv.Demo.Media
+namespace Walterlv.Demo.Xaml
 {
     public abstract class DependencyMarkupExtension : MarkupExtension
     {
@@ -31,10 +32,17 @@ namespace Walterlv.Demo.Media
 
             if (targetElement == null || targetProperty == null)
             {
-                throw new NotSupportedException(@"DependencyMarkupExtension 仅支持设置在 FrameworkElement 的 DependencyProperty 上。");
+                throw new NotSupportedException(
+                    @"DependencyMarkupExtension 仅支持设置在 FrameworkElement 的 DependencyProperty 上。");
             }
 
-            return ProvideValue(targetElement, targetProperty);
+            var returnValue = ProvideValue(targetElement, targetProperty);
+            if (returnValue is BindingBase binding)
+            {
+                targetElement.SetBinding(targetProperty, binding);
+                return binding.ProvideValue(serviceProvider);
+            }
+            return returnValue;
         }
 
         protected abstract object ProvideValue(FrameworkElement target, DependencyProperty property);

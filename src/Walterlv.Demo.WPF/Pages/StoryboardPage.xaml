@@ -14,7 +14,24 @@
             <DoubleAnimation Storyboard.TargetName="TranslateTransform" Storyboard.TargetProperty="Y"
                              EasingFunction="{StaticResource EasingFunction.Translate}"/>
         </Storyboard>
+        <Storyboard x:Key="Storyboard.Background" RepeatBehavior="Forever">
+            <ColorAnimationUsingKeyFrames Storyboard.TargetName="DisplayShape" Storyboard.TargetProperty="(Shape.Fill).(SolidColorBrush.Color)">
+                <LinearColorKeyFrame KeyTime="0:0:0" Value="Teal"/>
+                <LinearColorKeyFrame KeyTime="0:0:2" Value="Orange"/>
+                <LinearColorKeyFrame KeyTime="0:0:4" Value="LightSeaGreen"/>
+                <LinearColorKeyFrame KeyTime="0:0:6" Value="Tomato"/>
+                <LinearColorKeyFrame KeyTime="0:0:8" Value="Maroon"/>
+                <LinearColorKeyFrame KeyTime="0:0:10" Value="Navy"/>
+                <LinearColorKeyFrame KeyTime="0:0:12" Value="Fuchsia"/>
+                <LinearColorKeyFrame KeyTime="0:0:14" Value="Teal"/>
+            </ColorAnimationUsingKeyFrames>
+        </Storyboard>
     </FrameworkElement.Resources>
+    <FrameworkElement.Triggers>
+        <EventTrigger RoutedEvent="FrameworkElement.Loaded">
+            <BeginStoryboard Storyboard="{StaticResource Storyboard.Background}"/>
+        </EventTrigger>
+    </FrameworkElement.Triggers>
 
     <Grid Background="White">
         <Grid.RowDefinitions>
@@ -33,12 +50,12 @@
                 Text="walterlv" FontSize="64" FontWeight="Thin" Opacity="0.17"
                 HorizontalAlignment="Center" VerticalAlignment="Center"/>
         <Canvas x:Name="DisplayCanvas" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
-            <Rectangle x:Name="DisplayShape" Fill="YellowGreen" Width="120" Height="40">
+            <Rectangle x:Name="DisplayShape" Fill="White" Width="120" Height="40">
                 <UIElement.RenderTransform>
                     <TranslateTransform x:Name="TranslateTransform" X="0" Y="0"/>
                 </UIElement.RenderTransform>
             </Rectangle>
-            <TextBlock Foreground="{media:LuminanceForeground}" Text="我是前景 by walterlv"/>
+            <TextBlock Foreground="{media:LuminanceForeground TargetName=DisplayShape}" Text="我是前景 by walterlv"/>
         </Canvas>
     </Grid>
 </Page>
