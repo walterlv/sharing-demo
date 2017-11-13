@@ -46,6 +46,8 @@
       <HintPath>..\..\packages\MahApps.Metro.1.5.0\lib\net45\MahApps.Metro.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.AddIn" />
+    <Reference Include="System.AddIn.Contract" />
     <Reference Include="System.Data" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\..\packages\MahApps.Metro.1.5.0\lib\net45\System.Windows.Interactivity.dll</HintPath>
@@ -80,6 +82,9 @@
     <Compile Include="..\Walterlv.Demo.Sharing\Utils\Threading\DispatcherAsyncOperation.cs">
       <Link>Utils\Threading\DispatcherAsyncOperation.cs</Link>
     </Compile>
+    <Compile Include="Pages\MultiProcessPage.xaml.cs">
+      <DependentUpon>MultiProcessPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Utils\Converters\FuncConverter.cs" />
     <Compile Include="Utils\Media\LuminanceForegroundExtension.cs" />
@@ -110,6 +115,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Pages\MultiProcessPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\StoryboardPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -133,6 +142,10 @@
     <ProjectReference Include="..\Walterlv.Core\Walterlv.Core.csproj">
       <Project>{d5ae13ee-7146-47de-abf2-78a1e94ab939}</Project>
       <Name>Walterlv.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Walterlv.Extension.Contract\Walterlv.Extension.Contract.csproj">
+      <Project>{9ed8b587-7277-4355-8d6d-ca6e3f94738e}</Project>
+      <Name>Walterlv.Extension.Contract</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
