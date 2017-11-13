@@ -1,5 +1,4 @@
 ﻿using System;
-using System.AddIn.Contract;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Security;
@@ -42,7 +41,7 @@ namespace Walterlv.Demo.Interop
 
             //observer = adapter;
 
-            //PresentationSource.AddSourceChangedHandler(this, OnSourceChanged);
+            PresentationSource.AddSourceChangedHandler(this, OnSourceChanged);
             Dispatcher.ShutdownFinished += OnDispatcherShutdown;
 
             //if (null == observer) return;

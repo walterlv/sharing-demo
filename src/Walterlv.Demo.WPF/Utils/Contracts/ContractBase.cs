@@ -1,5 +1,4 @@
 ﻿using System;
-using System.AddIn.Contract;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.Remoting.Lifetime;

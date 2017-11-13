@@ -1,5 +1,4 @@
-﻿using System.AddIn.Contract;
-using System.Security;
+﻿using System.Security;
 using System.Windows;
 using Walterlv.Demo.Contracts;
 

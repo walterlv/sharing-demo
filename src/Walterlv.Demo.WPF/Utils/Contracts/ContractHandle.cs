@@ -1,5 +1,4 @@
 ﻿using System;
-using System.AddIn.Contract;
 using System.Runtime.Remoting;
 using System.Runtime.Serialization;
 

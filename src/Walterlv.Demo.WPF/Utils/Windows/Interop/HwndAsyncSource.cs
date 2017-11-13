@@ -40,7 +40,7 @@ namespace Walterlv.Demo.Interop
             if (null != CompositionTarget)
                 CompositionTarget.BackgroundColor = Colors.White;
 
-            //AddHook(HwndSourceHook);
+            AddHook(HwndSourceHook);
         }
 
 

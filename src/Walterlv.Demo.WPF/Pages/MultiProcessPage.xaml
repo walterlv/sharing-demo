@@ -7,7 +7,7 @@
       mc:Ignorable="d" d:DesignWidth="1280" d:DesignHeight="720"
       Title="MultiProcessPage">
 
-    <Grid Background="ForestGreen">
+    <Grid>
         
     </Grid>
 </Page>

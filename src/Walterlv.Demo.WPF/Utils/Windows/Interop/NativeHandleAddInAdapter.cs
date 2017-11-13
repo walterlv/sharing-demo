@@ -1,5 +1,4 @@
 ﻿using System;
-using System.AddIn.Contract;
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Input;

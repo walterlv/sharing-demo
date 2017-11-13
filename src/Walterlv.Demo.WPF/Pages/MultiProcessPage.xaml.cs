@@ -1,5 +1,4 @@
 ﻿using System;
-using System.AddIn.Pipeline;
 using System.Reflection;
 using System.Security;
 using System.Windows;
@@ -42,7 +41,7 @@ namespace Walterlv.Demo.Pages
                     Fill = Brushes.ForestGreen,
                 });
             
-            var element = FrameworkElementAdapters.ContractToViewAdapter(handleContract);
+            var element = FrameworkElementAsyncAdapters.ContractToViewAdapter(handleContract);
             Content = element;
         }
     }
