@@ -1,11 +1,8 @@
 ﻿using System;
-using System.AddIn.Hosting;
 using System.IO;
-using System.Linq;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
-using Walterlv.Contracts;
 
 namespace Walterlv.Demo.Pages
 {

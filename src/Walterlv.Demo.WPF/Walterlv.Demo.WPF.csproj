@@ -84,8 +84,17 @@
       <DependentUpon>MultiProcessPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
+    <Compile Include="Utils\Contracts\INativeHandleContract.cs" />
     <Compile Include="Utils\Converters\FuncConverter.cs" />
     <Compile Include="Utils\Media\LuminanceForegroundExtension.cs" />
+    <Compile Include="Utils\Contracts\ContractBase.cs" />
+    <Compile Include="Utils\Contracts\ContractHandle.cs" />
+    <Compile Include="Utils\Windows\Interop\FrameworkElementAsyncAdapters.cs" />
+    <Compile Include="Utils\Windows\Interop\HwndAsyncSource.cs" />
+    <Compile Include="Utils\Contracts\IContract.cs" />
+    <Compile Include="Utils\Windows\Interop\NativeHandleAddInAdapter.cs" />
+    <Compile Include="Utils\Windows\Interop\NativeHandleHostAdapter.cs" />
+    <Compile Include="Utils\Windows\Interop\WindowMessage.cs" />
     <Compile Include="Utils\Xaml\DependencyMarkupExtension.cs" />
     <Compile Include="Utils\Media\LuminanceReverseColor.cs" />
     <Compile Include="Utils\Threading\DispatcherContainer.cs" />
