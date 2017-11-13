@@ -1,17 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.AddIn.Hosting;
+using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using Walterlv.Contracts;
 
 namespace Walterlv.Demo.Pages
 {
@@ -20,6 +14,22 @@ namespace Walterlv.Demo.Pages
         public MultiProcessPage()
         {
             InitializeComponent();
+            Loaded += OnLoaded;
+        }
+
+        private void OnLoaded(object sender, RoutedEventArgs e)
+        {
+            Loaded -= OnLoaded;
+
+            var currentFolder = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)
+                                ?? Environment.CurrentDirectory;
+#if DEBUG
+            var path = Path.Combine(currentFolder, "..", "..", "..",
+                "Extensions", "Walterlv.Extensions.WPF", "bin", "Debug");
+            path = Path.GetFullPath(path);
+#else
+            var path = currentFolder;
+#endif
         }
     }
 }

@@ -57,5 +57,12 @@
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Walterlv.Extension.Contract\Walterlv.Extension.Contract.csproj">
+      <Project>{9ed8b587-7277-4355-8d6d-ca6e3f94738e}</Project>
+      <Name>Walterlv.Extension.Contract</Name>
+      <Private>False</Private>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
