@@ -32,17 +32,30 @@ namespace Walterlv.Demo.Pages
 #else
             var path = currentFolder;
 #endif
+            
+            var domain = AppDomain.CreateDomain("X");
+            var instance = (DomainX)domain.CreateInstanceAndUnwrap(
+                typeof(DomainX).Assembly.FullName,
+                typeof(DomainX).FullName);
 
-            var handleContract = FrameworkElementAsyncAdapters.ViewToContractAdapter(
+            var contract = instance.GetElement();
+
+            var element = FrameworkElementAsyncAdapters.ContractToViewAdapter(contract);
+            Content = element;
+        }
+    }
+
+    internal sealed class DomainX : MarshalByRefObject
+    {
+        public INativeHandleContract GetElement()
+        {
+            return FrameworkElementAsyncAdapters.ViewToContractAdapter(
                 new Rectangle
                 {
                     Width = 200,
                     Height = 100,
                     Fill = Brushes.ForestGreen,
                 });
-            
-            var element = FrameworkElementAsyncAdapters.ContractToViewAdapter(handleContract);
-            Content = element;
         }
     }
 }
