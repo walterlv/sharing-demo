@@ -1,4 +1,5 @@
 ﻿using System;
+using System.AddIn.Contract;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Security;

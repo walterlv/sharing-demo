@@ -1,8 +1,14 @@
 ﻿using System;
-using System.IO;
+using System.AddIn.Pipeline;
 using System.Reflection;
+using System.Security;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
+using System.Windows.Shapes;
+using Walterlv.Demo.Contracts;
+using Walterlv.Demo.Interop;
+using Path = System.IO.Path;
 
 namespace Walterlv.Demo.Pages
 {
@@ -27,6 +33,17 @@ namespace Walterlv.Demo.Pages
 #else
             var path = currentFolder;
 #endif
+
+            var handleContract = FrameworkElementAsyncAdapters.ViewToContractAdapter(
+                new Rectangle
+                {
+                    Width = 200,
+                    Height = 100,
+                    Fill = Brushes.ForestGreen,
+                });
+            
+            var element = FrameworkElementAdapters.ContractToViewAdapter(handleContract);
+            Content = element;
         }
     }
 }

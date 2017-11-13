@@ -12,9 +12,12 @@ namespace Walterlv.Demo
 {
     public class Program
     {
-        [STAThread]
+        [STAThread, LoaderOptimization(LoaderOptimization.MultiDomainHost)]
         static int Main(string[] args)
         {
+            new App().Run();
+            return 0;
+
             var watch = new Stopwatch();
             watch.Start();
 

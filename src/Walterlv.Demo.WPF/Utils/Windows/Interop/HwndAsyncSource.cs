@@ -7,7 +7,7 @@ using System.Windows.Media;
 
 namespace Walterlv.Demo.Interop
 {
-    public class HwndAsyncSource : HwndSource
+    public sealed class HwndAsyncSource : HwndSource
     {
         #region Fields
 
