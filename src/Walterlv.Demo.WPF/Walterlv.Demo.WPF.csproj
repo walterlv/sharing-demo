@@ -80,6 +80,8 @@
     <Compile Include="..\Walterlv.Demo.Sharing\Utils\Threading\DispatcherAsyncOperation.cs">
       <Link>Utils\Threading\DispatcherAsyncOperation.cs</Link>
     </Compile>
+    <Compile Include="Utils\Windows\AsyncApplication.cs" />
+    <Compile Include="Utils\Windows\CoreWindow.cs" />
     <Compile Include="Pages\MultiProcessPage.xaml.cs">
       <DependentUpon>MultiProcessPage.xaml</DependentUpon>
     </Compile>
@@ -156,6 +158,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Utils\Process\" />
     <Folder Include="View\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
