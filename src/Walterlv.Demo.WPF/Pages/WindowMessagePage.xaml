@@ -1,0 +1,18 @@
+﻿<Page x:Class="Walterlv.Demo.Pages.WindowMessagePage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Walterlv.Demo.Pages"
+      mc:Ignorable="d" d:DesignWidth="1280" d:DesignHeight="720" 
+      Title="Window Messages">
+    <Grid>
+        <ListView Background="{x:Null}" BorderBrush="{x:Null}" BorderThickness="0">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </Grid>
+</Page>

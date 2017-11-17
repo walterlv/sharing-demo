@@ -80,6 +80,9 @@
     <Compile Include="..\Walterlv.Demo.Sharing\Utils\Threading\DispatcherAsyncOperation.cs">
       <Link>Utils\Threading\DispatcherAsyncOperation.cs</Link>
     </Compile>
+    <Compile Include="Pages\WindowMessagePage.xaml.cs">
+      <DependentUpon>WindowMessagePage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Utils\Windows\AsyncApplication.cs" />
     <Compile Include="Utils\Windows\CoreWindow.cs" />
     <Compile Include="Pages\MultiProcessPage.xaml.cs">
@@ -133,6 +136,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\MultiThreadPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\WindowMessagePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
