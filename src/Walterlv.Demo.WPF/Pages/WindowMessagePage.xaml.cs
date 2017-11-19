@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
+using Walterlv.ComponentModel;
 
 namespace Walterlv.Demo.Pages
 {
@@ -23,8 +24,16 @@ namespace Walterlv.Demo.Pages
         }
     }
 
-    public sealed class WindowMessageViewModel
+    public sealed class WindowMessageViewModel : NotificationObject
     {
+        private int _value;
+
+        public int Value
+        {
+            get => _value;
+            set => SetValue(ref _value, value);
+        }
+
         
     }
 }
