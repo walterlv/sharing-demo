@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Walterlv.Demo"
         mc:Ignorable="d" Title="星i"
-        local:WindowIconExtensions.ShowIcon="False">
+        local:WindowIconExtensions.ShowIcon="False"
+        WindowStartupLocation="CenterScreen">
     <Frame NavigationUIVisibility="Hidden">
         <Frame.Content>
             <local:MainPage/>
