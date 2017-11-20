@@ -1,11 +1,12 @@
-﻿<Page
+﻿<local:SomePage x:Class="Walterlv.Demo.Pages.StoryboardPage"
+      x:TypeArguments="local:WindowMessageViewModel"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Walterlv.Demo.Pages"
       xmlns:media="clr-namespace:Walterlv.Demo.Media"
-      xmlns:ed="http://schemas.microsoft.com/expression/2010/drawing" x:Class="Walterlv.Demo.Pages.StoryboardPage"
+      xmlns:ed="http://schemas.microsoft.com/expression/2010/drawing"
       mc:Ignorable="d" Title="StoryboardPage">
     <Page.Resources>
         <CircleEase x:Key="EasingFunction.Translate" EasingMode="EaseOut"/>
@@ -98,4 +99,4 @@
             <Path x:Name="v"   Data="M803,308.22 L817,358.22 835.5,310.22"/>
         </Canvas>
     </Grid>
-</Page>
+</local:SomePage>
