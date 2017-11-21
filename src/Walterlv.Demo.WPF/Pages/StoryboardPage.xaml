@@ -1,5 +1,4 @@
-﻿<local:SomePage x:Class="Walterlv.Demo.Pages.StoryboardPage"
-      x:TypeArguments="local:WindowMessageViewModel"
+﻿<Page x:Class="Walterlv.Demo.Pages.StoryboardPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -11,14 +10,9 @@
     <Page.Resources>
         <CircleEase x:Key="EasingFunction.Translate" EasingMode="EaseOut"/>
         <CubicEase x:Key="EasingFunction.DrawLine" EasingMode="EaseOut"/>
-        <Storyboard x:Key="Storyboard.Translate">
-            <DoubleAnimation Storyboard.TargetName="TranslateTransform" Storyboard.TargetProperty="X"
-                             EasingFunction="{StaticResource EasingFunction.Translate}"/>
-            <DoubleAnimation Storyboard.TargetName="TranslateTransform" Storyboard.TargetProperty="Y"
-                             EasingFunction="{StaticResource EasingFunction.Translate}"/>
-        </Storyboard>
+        <Storyboard x:Key="Storyboard.Translate"/>
         <Storyboard x:Key="Storyboard.Background" RepeatBehavior="Forever">
-            <ColorAnimationUsingKeyFrames Storyboard.TargetName="DisplayShape" Storyboard.TargetProperty="(Shape.Fill).(SolidColorBrush.Color)">
+            <ColorAnimationUsingKeyFrames Storyboard.TargetName="DisplayShape" Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)">
                 <LinearColorKeyFrame KeyTime="0:0:0" Value="Teal"/>
                 <LinearColorKeyFrame KeyTime="0:0:2" Value="Orange"/>
                 <LinearColorKeyFrame KeyTime="0:0:4" Value="LightSeaGreen"/>
@@ -80,14 +74,23 @@
                     <Setter Property="StrokeThickness" Value="4"/>
                 </Style>
             </FrameworkElement.Resources>
-            
-            <Rectangle x:Name="DisplayShape" Fill="White">
-                <Rectangle.RenderTransform>
-                    <TranslateTransform x:Name="TranslateTransform" X="0" Y="0"/>
-                </Rectangle.RenderTransform>
-            </Rectangle>
+
+            <Border x:Name="DisplayShape" Background="#FF1B6CB0" Width="200" Height="100">
+                <UIElement.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform ScaleX="1" ScaleY="1"/>
+                        <SkewTransform/>
+                        <RotateTransform Angle="-90"/>
+                        <TranslateTransform x:Name="TranslateTransform" X="200" Y="400"/>
+                    </TransformGroup>
+                </UIElement.RenderTransform>
+                <TextBlock Foreground="{media:LuminanceForeground TargetName=DisplayShape}" Text="walterlv"
+                           HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            </Border>
+            <Rectangle x:Name="TraceShape" Width="200" Height="100" Stroke="#FFE2620A" StrokeThickness="4"
+                       RenderTransformOrigin="0.5 0.5"/>
             <!--<TextBlock Foreground="{media:LuminanceForeground TargetName=DisplayShape}" Text="我是前景 by walterlv"/>-->
-            
+
             <Path x:Name="w"   Data="M501.5,309.22 L510.5,356.22 524,324.72 536,355.72 546,306.22"/>
             <Path x:Name="a"   Data="M588.5,316.22 C588.5,316.22 561.5,308.72 558,334.72 554.5,360.72 579.5,369.21978 588,357.71985 596.5,346.21993 587.00002,315.22013 588.99999,310.22011 590.49998,326.72017 589.50007,359.22028 597.99998,359.22028"/>
             <Path x:Name="l1"  Data="M613.5,283.22 C613.5,283.22 607,372.22 623.5,357.22"/>
@@ -99,4 +102,4 @@
             <Path x:Name="v"   Data="M803,308.22 L817,358.22 835.5,310.22"/>
         </Canvas>
     </Grid>
-</local:SomePage>
+</Page>

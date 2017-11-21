@@ -1,5 +1,4 @@
-﻿<local:SomePage
-    x:TypeArguments="local:TestA"
+﻿<Page
     x:Class="Walterlv.Demo.Pages.StoryboardPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -80,4 +79,4 @@
             <Path x:Name="v"   Data="M803,308.22 L817,358.22 835.5,310.22"/>
         </Canvas>
     </Grid>
-</local:SomePage>
+</Page>
