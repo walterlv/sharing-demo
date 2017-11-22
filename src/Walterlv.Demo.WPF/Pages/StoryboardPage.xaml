@@ -78,16 +78,17 @@
             <Border x:Name="DisplayShape" Background="#FF1B6CB0" Width="200" Height="100">
                 <UIElement.RenderTransform>
                     <TransformGroup>
-                        <ScaleTransform ScaleX="2" ScaleY="3"/>
+                        <ScaleTransform ScaleX="2" ScaleY="2"/>
                         <SkewTransform/>
                         <RotateTransform Angle="30"/>
-                        <TranslateTransform x:Name="TranslateTransform" X="0" Y="0"/>
+                        <TranslateTransform x:Name="TranslateTransform" X="00" Y="00"/>
                     </TransformGroup>
                 </UIElement.RenderTransform>
                 <TextBlock Foreground="{media:LuminanceForeground TargetName=DisplayShape}" Text="walterlv"
                            HorizontalAlignment="Center" VerticalAlignment="Center"/>
             </Border>
-            <Rectangle x:Name="TraceShape" Width="200" Height="100" Stroke="#FFE2620A" StrokeThickness="4"/>
+            <Rectangle x:Name="TraceShape" Width="200" Height="100" Stroke="#FFE2620A" StrokeThickness="4"
+                       RenderTransformOrigin="0.5 0.5"/>
             <!--<TextBlock Foreground="{media:LuminanceForeground TargetName=DisplayShape}" Text="我是前景 by walterlv"/>-->
 
             <Path x:Name="w"   Data="M501.5,309.22 L510.5,356.22 524,324.72 536,355.72 546,306.22"/>

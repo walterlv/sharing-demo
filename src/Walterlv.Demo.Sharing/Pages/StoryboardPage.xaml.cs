@@ -71,8 +71,29 @@ namespace Walterlv.Demo.Pages
                 var matrix = DisplayShape.RenderTransform.Value;
                 var (scaling, rotation, translation) = ExtractMatrix(matrix, (scalingFactor) =>
                 {
-                    return (new Point(0, 0),
-                        new Point());
+                    if (TraceShape.RenderTransformOrigin == default(Point))
+                    {
+                        return (new Point(), new Point(
+                            DisplayShape.ActualWidth * scalingFactor.X / 2,
+                            DisplayShape.ActualHeight * scalingFactor.Y / 2));
+                    }
+                    else
+                    {
+                        if (index % 2 == 0)
+                        {
+                            return (new Point(),
+                                new Point(
+                                    DisplayShape.ActualWidth * scalingFactor.X / 2,
+                                    DisplayShape.ActualHeight * scalingFactor.Y / 2));
+                        }
+                        else
+                        {
+                            return (new Point(),
+                                new Point(
+                                    DisplayShape.ActualWidth * (scalingFactor.X - 0) / 2,
+                                    DisplayShape.ActualHeight * (scalingFactor.Y - 0) / 2));
+                        }
+                    }
                 });
                 var group = new TransformGroup();
                 if (index % 2 == 0)
@@ -94,7 +115,22 @@ namespace Walterlv.Demo.Pages
                 {
                     Angle = rotation,
                 });
-                if (TraceShape.RenderTransformOrigin == new Point(0.5, 0.5))
+                if (TraceShape.RenderTransformOrigin == default(Point))
+                {
+                    var scaleTransform = group.Children.OfType<ScaleTransform>().FirstOrDefault();
+                    if (scaleTransform != null)
+                    {
+                        scaleTransform.CenterX = 0;
+                        scaleTransform.CenterY = 0;
+                    }
+                    var rotateTransform = group.Children.OfType<RotateTransform>().FirstOrDefault();
+                    if (rotateTransform != null)
+                    {
+                        rotateTransform.CenterX = DisplayShape.ActualWidth * scaling.X / 2;
+                        rotateTransform.CenterY = DisplayShape.ActualHeight * scaling.Y / 2;
+                    }
+                }
+                else
                 {
                     var scaleTransform = group.Children.OfType<ScaleTransform>().FirstOrDefault();
                     if (scaleTransform != null)
@@ -103,10 +139,10 @@ namespace Walterlv.Demo.Pages
                         scaleTransform.CenterY = -DisplayShape.ActualHeight / 2;
                     }
                     var rotateTransform = group.Children.OfType<RotateTransform>().FirstOrDefault();
-                    if (rotateTransform != null)
+                    if (rotateTransform != null && index % 2 != 0)
                     {
-                        rotateTransform.CenterX = DisplayShape.ActualWidth * scaling.X / 2;
-                        rotateTransform.CenterY = DisplayShape.ActualHeight * scaling.Y / 2;
+                        rotateTransform.CenterX = DisplayShape.ActualWidth * (scaling.X - 1) / 2;
+                        rotateTransform.CenterY = DisplayShape.ActualHeight * (scaling.Y - 1) / 2;
                     }
                 }
                 group.Children.Add(new TranslateTransform {X = translation.X, Y = translation.Y});
