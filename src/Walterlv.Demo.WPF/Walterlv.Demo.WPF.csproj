@@ -83,6 +83,7 @@
     <Compile Include="Pages\WindowMessagePage.xaml.cs">
       <DependentUpon>WindowMessagePage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Utils\Media\TransformMatrix.cs" />
     <Compile Include="Utils\Windows\AsyncApplication.cs" />
     <Compile Include="Utils\Windows\CoreWindow.cs" />
     <Compile Include="Pages\MultiProcessPage.xaml.cs">
