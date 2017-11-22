@@ -78,10 +78,10 @@
             <Border x:Name="DisplayShape" Background="#FF1B6CB0" Width="200" Height="100">
                 <UIElement.RenderTransform>
                     <TransformGroup>
-                        <ScaleTransform ScaleX="2" ScaleY="2"/>
+                        <ScaleTransform ScaleX="1.2" ScaleY="1.5"/>
                         <SkewTransform/>
                         <RotateTransform Angle="30"/>
-                        <TranslateTransform x:Name="TranslateTransform" X="00" Y="00"/>
+                        <TranslateTransform x:Name="TranslateTransform" X="100" Y="100"/>
                     </TransformGroup>
                 </UIElement.RenderTransform>
                 <TextBlock Foreground="{media:LuminanceForeground TargetName=DisplayShape}" Text="walterlv"

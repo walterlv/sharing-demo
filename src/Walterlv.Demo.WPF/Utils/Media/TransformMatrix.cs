@@ -10,21 +10,14 @@ namespace Walterlv.Demo.Media
     public class TransformMatrix
     {
         /// <summary>
-        /// 为 <see cref="MatrixToGroup"/> 方法提供变换中心的指定方法。
-        /// 可以从 <see cref="TransformMatrix"/> 中获取到几个预设的变换中心指定方法。
-        /// </summary>
-        /// <param name="scalingFactor">先进行缩放后进行旋转时，旋转中心的计算可能需要考虑前面缩放后的坐标。此参数可以得知缩放比。</param>
-        /// <returns>绝对坐标的缩放中心和旋转中心。</returns>
-        public delegate (Point ScalingCenter, Point RotationCenter) CenterSpecification(Vector scalingFactor);
-
-        /// <summary>
         /// 对于给定的变换矩阵 <paramref name="matrix"/>，求出一个可以模拟此变换矩阵的缩放、旋转、平移变换组。
         /// <para>默认情况下变换中心都是元素的左上角点 (0, 0)，也可以通过指定参数 <paramref name="specifyCenter"/> 修改这一行为。</para>
         /// </summary>
         /// <param name="matrix">需要解构的变换矩阵（如果是对 UI 元素进行解构，传入的 Matrix 需要额外考虑 RenderTransformOrigin。）</param>
         /// <param name="specifyCenter">
-        /// 如果需要分别为缩放和旋转指定变换中心，则在此参数中通过委托给定。
+        /// 如果需要分别为缩放和旋转指定变换中心，则在此参数中通过委托给定（建议从 <see cref="Centers"/> 中选择预设的委托）。
         /// <para>委托需要返回两个值，第一个是缩放中心（绝对坐标），相对于未进行任何变换时的元素；第二个是旋转中心（绝对坐标），相对于缩放后的元素（缩放比可通过委托参数获取）。</para>
+        /// <para>此委托不需要考虑 <see cref="UIElement.RenderTransformOrigin"/>，只关心最终效果。</para>
         /// </param>
         /// <returns>按缩放、旋转、平移顺序返回变换参数，可直接应用到对应的 <see cref="Transform"/> 中。</returns>
         public static (Vector Scaling, double Rotation, Vector Translation) MatrixToGroup(
@@ -70,6 +63,91 @@ namespace Walterlv.Demo.Media
 
             // 按缩放、旋转、平移来返回变换分量。
             return (scaling, rotation, translation);
+        }
+
+        /// <summary>
+        /// 为 <see cref="MatrixToGroup"/> 方法提供变换中心的指定方法。
+        /// 可以从 <see cref="TransformMatrix"/> 中获取到几个预设的变换中心指定方法。
+        /// </summary>
+        /// <param name="scalingFactor">先进行缩放后进行旋转时，旋转中心的计算可能需要考虑前面缩放后的坐标。此参数可以得知缩放比。</param>
+        /// <returns>绝对坐标的缩放中心和旋转中心。</returns>
+        public delegate (Point ScalingCenter, Point RotationCenter) CenterSpecification(Vector scalingFactor);
+
+        /// <summary>
+        /// 包含变换中心点计算的常用计算方法。
+        /// </summary>
+        public static class Centers
+        {
+            /// <summary>
+            /// 缩放中心是 (0, 0)，旋转中心是 (0.5, 0.5)。<para/>
+            /// </summary>
+            /// <param name="originalSize">要应用变换组的元素尺寸。</param>
+            /// <returns></returns>
+            public static CenterSpecification ScaleAtZeroRotateAtCenter(Size originalSize)
+            {
+                return scalingFactor => (new Point(), new Point(
+                    originalSize.Width * scalingFactor.X / 2,
+                    originalSize.Height * scalingFactor.Y / 2));
+            }
+        }
+
+        /// <summary>
+        /// 包含生成变换组的常用计算方法。
+        /// </summary>
+        public static class GroupGenerator
+        {
+            /// <summary>
+            /// 生成一个变换组，并应用到目标元素。此变换组不含缩放（意味着元素需要自己用宽高乘以缩放比来适应变换），
+            /// 但会按元素的 <see cref="UIElement.RenderTransformOrigin"/> 为中心进行旋转。
+            /// <para>当使用 <see cref="MatrixToGroup"/> 生成变换组数据时，可以将得到的结果作为参数传入。</para>
+            /// </summary>
+            /// <param name="rotation"><see cref="MatrixToGroup"/> 计算得到的旋转角度。</param>
+            /// <param name="translation"><see cref="MatrixToGroup"/> 计算得到的平移向量。</param>
+            /// <param name="originalSize">元素的原始宽高（而非为适应变换而计算后的宽高）。</param>
+            /// <returns>可以用来设置给元素的变换组。</returns>
+            public static TransformGroup NoScaleButRotateAtOrigin(
+                double rotation, Vector translation, Size originalSize)
+            {
+                var group = new TransformGroup();
+                group.Children.Add(new RotateTransform {Angle = rotation});
+                group.Children.Add(new TranslateTransform {X = translation.X, Y = translation.Y});
+                return group;
+            }
+
+            /// <summary>
+            /// 生成一个变换组，并应用到目标元素。此变换以 (0, 0) 进行缩放，以 (0.5, 0.5) 进行旋转，随后进行平移。
+            /// 由于目标元素可能设置了 <see cref="UIElement.RenderTransformOrigin"/> 属性导致以上中心点的计算变得复杂，所以可以将其传入以便抵消它的影响。
+            /// <para>当使用 <see cref="MatrixToGroup"/> 生成变换组数据时，可以将得到的结果作为参数传入。</para>
+            /// </summary>
+            /// <param name="scaling"><see cref="MatrixToGroup"/> 计算得到的缩放比。</param>
+            /// <param name="rotation"><see cref="MatrixToGroup"/> 计算得到的旋转角度。</param>
+            /// <param name="translation"><see cref="MatrixToGroup"/> 计算得到的平移向量。</param>
+            /// <param name="originalSize">元素的原始宽高。</param>
+            /// <param name="renderTransformOrigin"></param>
+            /// <returns>可以用来设置给元素的变换组。</returns>
+            public static TransformGroup ScaleAtZeroRotateAtCenter(
+                Vector scaling, double rotation, Vector translation,
+                Size originalSize, Point renderTransformOrigin = default(Point))
+            {
+                var group = new TransformGroup();
+                var scaleTransform = new ScaleTransform
+                {
+                    ScaleX = scaling.X,
+                    ScaleY = scaling.Y,
+                    CenterX = -originalSize.Width * renderTransformOrigin.X,
+                    CenterY = -originalSize.Height * renderTransformOrigin.Y,
+                };
+                var rotateTransform = new RotateTransform
+                {
+                    Angle = rotation,
+                    CenterX = originalSize.Width * (scaling.X / 2 - renderTransformOrigin.X),
+                    CenterY = originalSize.Height * (scaling.Y / 2 - renderTransformOrigin.Y),
+                };
+                group.Children.Add(scaleTransform);
+                group.Children.Add(rotateTransform);
+                group.Children.Add(new TranslateTransform {X = translation.X, Y = translation.Y});
+                return group;
+            }
         }
     }
 }

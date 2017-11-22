@@ -51,7 +51,7 @@ namespace Walterlv.Demo.Pages
 
         private readonly Random _random = new Random(DateTime.Now.Ticks.GetHashCode());
 
-        private async void OnLoaded(object sender, RoutedEventArgs args)
+        private void OnLoaded(object sender, RoutedEventArgs args)
         {
             Loaded -= OnLoaded;
             TranslateStoryboard.Begin();
@@ -64,90 +64,35 @@ namespace Walterlv.Demo.Pages
             }
             DrawLineStoryboard.Begin();
 
+            TraceTest().ConfigureAwait(false);
+        }
+
+        private async Task TraceTest()
+        {
             var index = 0;
             while (true)
             {
                 await Task.Delay(500);
 
                 var matrix = DisplayShape.RenderTransform.Value;
-                var (scaling, rotation, translation) = TransformMatrix.MatrixToGroup(matrix, (scalingFactor) =>
-                {
-                    if (TraceShape.RenderTransformOrigin == default(Point))
-                    {
-                        return (new Point(), new Point(
-                            DisplayShape.ActualWidth * scalingFactor.X / 2,
-                            DisplayShape.ActualHeight * scalingFactor.Y / 2));
-                    }
-                    else
-                    {
-                        if (index % 2 == 0)
-                        {
-                            return (new Point(),
-                                new Point(
-                                    DisplayShape.ActualWidth * scalingFactor.X / 2,
-                                    DisplayShape.ActualHeight * scalingFactor.Y / 2));
-                        }
-                        else
-                        {
-                            return (new Point(),
-                                new Point(
-                                    DisplayShape.ActualWidth * (scalingFactor.X - 0) / 2,
-                                    DisplayShape.ActualHeight * (scalingFactor.Y - 0) / 2));
-                        }
-                    }
-                });
-                var group = new TransformGroup();
+                var (scaling, rotation, translation) = TransformMatrix.MatrixToGroup(matrix,
+                    TransformMatrix.Centers.ScaleAtZeroRotateAtCenter(DisplayShape.RenderSize));
+
                 if (index % 2 == 0)
-                {
-                    TraceShape.Width = DisplayShape.ActualWidth * scaling.X;
-                    TraceShape.Height = DisplayShape.ActualHeight * scaling.Y;
-                }
-                else
                 {
                     TraceShape.Width = DisplayShape.ActualWidth;
                     TraceShape.Height = DisplayShape.ActualHeight;
-                    group.Children.Add(new ScaleTransform
-                    {
-                        ScaleX = scaling.X,
-                        ScaleY = scaling.Y,
-                    });
-                }
-                group.Children.Add(new RotateTransform
-                {
-                    Angle = rotation,
-                });
-                if (TraceShape.RenderTransformOrigin == default(Point))
-                {
-                    var scaleTransform = group.Children.OfType<ScaleTransform>().FirstOrDefault();
-                    if (scaleTransform != null)
-                    {
-                        scaleTransform.CenterX = 0;
-                        scaleTransform.CenterY = 0;
-                    }
-                    var rotateTransform = group.Children.OfType<RotateTransform>().FirstOrDefault();
-                    if (rotateTransform != null)
-                    {
-                        rotateTransform.CenterX = DisplayShape.ActualWidth * scaling.X / 2;
-                        rotateTransform.CenterY = DisplayShape.ActualHeight * scaling.Y / 2;
-                    }
+                    TraceShape.RenderTransform = TransformMatrix.GroupGenerator.ScaleAtZeroRotateAtCenter(
+                        scaling, rotation, translation,
+                        DisplayShape.RenderSize, TraceShape.RenderTransformOrigin);
                 }
                 else
                 {
-                    var scaleTransform = group.Children.OfType<ScaleTransform>().FirstOrDefault();
-                    if (scaleTransform != null)
-                    {
-                        scaleTransform.CenterX = -DisplayShape.ActualWidth / 2;
-                        scaleTransform.CenterY = -DisplayShape.ActualHeight / 2;
-                    }
-                    var rotateTransform = group.Children.OfType<RotateTransform>().FirstOrDefault();
-                    if (rotateTransform != null && index % 2 != 0)
-                    {
-                        rotateTransform.CenterX = DisplayShape.ActualWidth * (scaling.X - 1) / 2;
-                        rotateTransform.CenterY = DisplayShape.ActualHeight * (scaling.Y - 1) / 2;
-                    }
+                    TraceShape.Width = DisplayShape.ActualWidth * scaling.X;
+                    TraceShape.Height = DisplayShape.ActualHeight * scaling.Y;
+                    TraceShape.RenderTransform = TransformMatrix.GroupGenerator.NoScaleButRotateAtOrigin(
+                        rotation, translation, DisplayShape.RenderSize);
                 }
-                group.Children.Add(new TranslateTransform {X = translation.X, Y = translation.Y});
-                TraceShape.RenderTransform = group;
                 index++;
             }
         }
