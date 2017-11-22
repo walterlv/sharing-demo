@@ -21,6 +21,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
 using MahApps.Metro.Converters;
@@ -62,6 +63,7 @@ namespace Walterlv.Demo.Pages
             }
             DrawLineStoryboard.Begin();
 
+            var index = 0;
             while (true)
             {
                 await Task.Delay(500);
@@ -69,17 +71,47 @@ namespace Walterlv.Demo.Pages
                 var matrix = DisplayShape.RenderTransform.Value;
                 var (scaling, rotation, translation) = ExtractMatrix(matrix, (scalingFactor) =>
                 {
-                    var point = new Point(DisplayShape.ActualWidth, DisplayShape.ActualHeight);
-                    return (new Point(-(scalingFactor.X * point.X - 1) / 2, -(scalingFactor.Y * point.Y - 1) / 2),
-                        new Point((scalingFactor.X * point.X - 1) / 2, (scalingFactor.Y * point.Y - 1) / 2));
+                    return (new Point(0, 0),
+                        new Point());
                 });
                 var group = new TransformGroup();
-                group.Children.Add(new ScaleTransform {ScaleX = scaling.X, ScaleY = scaling.Y});
-                //TraceShape.Width = DisplayShape.ActualWidth * scaling.X;
-                //TraceShape.Height = DisplayShape.ActualHeight * scaling.Y;
-                group.Children.Add(new RotateTransform {Angle = rotation});
+                if (index % 2 == 0)
+                {
+                    TraceShape.Width = DisplayShape.ActualWidth * scaling.X;
+                    TraceShape.Height = DisplayShape.ActualHeight * scaling.Y;
+                }
+                else
+                {
+                    TraceShape.Width = DisplayShape.ActualWidth;
+                    TraceShape.Height = DisplayShape.ActualHeight;
+                    group.Children.Add(new ScaleTransform
+                    {
+                        ScaleX = scaling.X,
+                        ScaleY = scaling.Y,
+                    });
+                }
+                group.Children.Add(new RotateTransform
+                {
+                    Angle = rotation,
+                });
+                if (TraceShape.RenderTransformOrigin == new Point(0.5, 0.5))
+                {
+                    var scaleTransform = group.Children.OfType<ScaleTransform>().FirstOrDefault();
+                    if (scaleTransform != null)
+                    {
+                        scaleTransform.CenterX = -DisplayShape.ActualWidth / 2;
+                        scaleTransform.CenterY = -DisplayShape.ActualHeight / 2;
+                    }
+                    var rotateTransform = group.Children.OfType<RotateTransform>().FirstOrDefault();
+                    if (rotateTransform != null)
+                    {
+                        rotateTransform.CenterX = DisplayShape.ActualWidth * scaling.X / 2;
+                        rotateTransform.CenterY = DisplayShape.ActualHeight * scaling.Y / 2;
+                    }
+                }
                 group.Children.Add(new TranslateTransform {X = translation.X, Y = translation.Y});
                 TraceShape.RenderTransform = group;
+                index++;
             }
         }
 
@@ -96,15 +128,40 @@ namespace Walterlv.Demo.Pages
             if (specifyCenter != null)
             {
                 var (scalingCenter, rotationCenter) = specifyCenter(scaling);
-                // 如果目标自带缩放中心，那么此处需要先去掉缩放中心带来的平移分量。
-                translation += (new Vector());
-                // 如果目标自带旋转中心，那么此处需要先去掉旋转中心带来的平移分量。
-                translation += (Rotate(rotationCenter, rotation) - rotationCenter);
+
+                var scaleMatrix = Matrix.Identity;
+                scaleMatrix.ScaleAt(scaling.X, scaling.Y, scalingCenter.X, scalingCenter.Y);
+                var rotateMatrix = Matrix.Identity;
+                rotateMatrix.RotateAt(rotation, rotationCenter.X, rotationCenter.Y);
+
+                scaleMatrix.Invert();
+                rotateMatrix.Invert();
+                var translateMatrix = Matrix.Multiply(rotateMatrix, scaleMatrix);
+                translateMatrix = Matrix.Multiply(translateMatrix, matrix);
+                translation = new Vector(translateMatrix.OffsetX, translateMatrix.OffsetY);
+
+                //var fixMatrix = new Matrix(1, 0, 0, 1, rotationCenter.X, rotationCenter.Y);
+                //var invertedFixMatrix = fixMatrix;
+                //invertedFixMatrix.Invert();
+                //var fix = Matrix.Multiply(invertedFixMatrix, matrix);
+                //fix = Matrix.Multiply(fix, fixMatrix);
+                //translation = new Vector(fix.OffsetX, fix.OffsetY);
+
+                //// 如果目标自带缩放中心，那么此处需要先去掉缩放中心带来的平移分量。
+                //translation += Scale(scalingCenter, scaling) - scalingCenter;
+                //// 如果目标自带旋转中心，那么此处需要先去掉旋转中心带来的平移分量。
+                //translation += Rotate(rotationCenter, rotation) - rotationCenter;
             }
             return (scaling, rotation, translation);
         }
 
         public delegate (Point ScalingCenter, Point RotationCenter) CenterSpecification(Vector scalingFactor);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private Point Scale(Point point, Vector scale)
+        {
+            return new Point(point.X * scale.X, point.Y * scale.Y);
+        }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private Point Rotate(Point point, double angle)
