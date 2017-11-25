@@ -31,10 +31,20 @@ namespace Walterlv.Demo.Media.Animation
                 throw new ArgumentException("指定的 key 已经做好动画准备，不应该重复进行准备。", nameof(key));
             }
 
-            info = new ConnectedAnimation(source);
+            info = new ConnectedAnimation(key, source, OnAnimationCompleted);
             _connectingAnimations.Add(key, info);
         }
 
+        private void OnAnimationCompleted(object sender, EventArgs e)
+        {
+            var key = ((ConnectedAnimation) sender).Key;
+            if (_connectingAnimations.ContainsKey(key))
+            {
+                _connectingAnimations.Remove(key);
+            }
+        }
+
+        [CanBeNull]
         public ConnectedAnimation GetAnimation([NotNull] string key)
         {
             if (key == null)
@@ -45,7 +55,7 @@ namespace Walterlv.Demo.Media.Animation
             {
                 return info;
             }
-            throw new KeyNotFoundException($"指定 key 为 {key} 的动画没有进行准备，请使用 PrepareToAnimate 进行准备。");
+            return null;
         }
 
         private static readonly DependencyProperty AnimationServiceProperty =

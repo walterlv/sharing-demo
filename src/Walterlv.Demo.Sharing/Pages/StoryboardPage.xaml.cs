@@ -12,21 +12,10 @@ using Walterlv.ComponentModel;
 
 #else
 using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Media;
-using System.Windows.Media.Animation;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using System.Windows.Threading;
-using MahApps.Metro.Converters;
-using Walterlv.ComponentModel;
-using Walterlv.Demo.Media;
+using Walterlv.Demo.Media.Animation;
 
 #endif
 
@@ -39,113 +28,42 @@ namespace Walterlv.Demo.Pages
             InitializeComponent();
             Loaded += OnLoaded;
         }
-
-#if !WINDOWS_UWP
-        private Storyboard TranslateStoryboard => (Storyboard)FindResource("Storyboard.Translate");
-        private Storyboard DrawLineStoryboard => (Storyboard) FindResource("Storyboard.DrawName");
-#endif
-
-        private DoubleAnimation TranslateXAnimation => (DoubleAnimation) TranslateStoryboard.Children[0];
-
-        private DoubleAnimation TranslateYAnimation => (DoubleAnimation) TranslateStoryboard.Children[1];
-
-        private readonly Random _random = new Random(DateTime.Now.Ticks.GetHashCode());
-
+        
         private void OnLoaded(object sender, RoutedEventArgs args)
         {
             Loaded -= OnLoaded;
-            TranslateStoryboard.Begin();
-            TranslateStoryboard.Stop();
-
-            for (var i = 0; i < DrawLineStoryboard.Children.Count; i++)
-            {
-                InitializePathAndItsAnimation((Path) DisplayCanvas.Children[i + 2],
-                    (DoubleAnimation) DrawLineStoryboard.Children[i]);
-            }
-            DrawLineStoryboard.Begin();
-
-            TraceTest().ConfigureAwait(false);
         }
 
-        private async Task TraceTest()
-        {
-            var index = 0;
-            while (true)
-            {
-                await Task.Delay(500);
-
-                var matrix = DisplayShape.RenderTransform.Value;
-                var (scaling, rotation, translation) = TransformMatrix.MatrixToGroup(matrix,
-                    TransformMatrix.Centers.ScaleAtZeroRotateAtCenter(DisplayShape.RenderSize));
-
-                if (index % 2 == 0)
-                {
-                    TraceShape.Width = DisplayShape.ActualWidth;
-                    TraceShape.Height = DisplayShape.ActualHeight;
-                    TraceShape.RenderTransform = TransformMatrix.GroupGenerator.ScaleAtZeroRotateAtCenter(
-                        scaling, rotation, translation,
-                        DisplayShape.RenderSize, TraceShape.RenderTransformOrigin);
-                }
-                else
-                {
-                    TraceShape.Width = DisplayShape.ActualWidth * scaling.X;
-                    TraceShape.Height = DisplayShape.ActualHeight * scaling.Y;
-                    TraceShape.RenderTransform = TransformMatrix.GroupGenerator.NoScaleButRotateAtOrigin(
-                        rotation, translation, DisplayShape.RenderSize);
-                }
-                index++;
-            }
-        }
-
-        private void InitializePathAndItsAnimation(Path path, DoubleAnimation animation)
-        {
-            //var length = path.Data.GetProximateLength() / path.StrokeThickness;
-            //path.StrokeDashOffset = length;
-            //path.StrokeDashArray = new DoubleCollection(new[] {length, length});
-            //animation.From = length;
-        }
+        private int index = 0;
 
         private void BeginStoryboard_Click(object sender, RoutedEventArgs e)
         {
-            Uwp_AnimateToRandomPosition();
-            TranslateStoryboard.Begin();
-            MoveToRandomPosition();
+            BeginConnectedAnimation((UIElement) sender);
         }
 
         private void BeginStoryboard2_Click(object sender, RoutedEventArgs e)
         {
-            MoveToRandomPosition();
-            Uwp_AnimateToRandomPosition();
-            TranslateStoryboard.Begin();
-            MoveToRandomPosition();
+            BeginConnectedAnimation((UIElement)sender);
         }
 
         private void PauseStoryboard_Click(object sender, RoutedEventArgs e)
         {
-            TranslateStoryboard.Pause();
+            BeginConnectedAnimation((UIElement)sender);
         }
 
-        [Conditional("WINDOWS_UWP")]
-        private void Uwp_AnimateToRandomPosition()
+        private async void BeginConnectedAnimation(UIElement source)
         {
-            var nextPosition = NextRandomPosition();
-            TranslateXAnimation.To = nextPosition.X;
-            TranslateYAnimation.To = nextPosition.Y;
-        }
+            source.Visibility = Visibility.Hidden;
+            var animatingSource = (UIElement) VisualTreeHelper.GetChild(source, 0);
 
-        [Conditional("WPF")]
-        private void MoveToRandomPosition()
-        {
-            var nextPosition = NextRandomPosition();
-            TranslateTransform.X = nextPosition.X;
-            TranslateTransform.Y = nextPosition.Y;
-        }
+            var service = ConnectedAnimationService.GetForCurrentView(this);
+            service.PrepareToAnimate($"Test{index}", animatingSource);
+            var animation = service.GetAnimation($"Test{index}");
+            animation?.TryStart(ConnectionDestination);
+            index++;
 
-        private Point NextRandomPosition()
-        {
-            var areaX = (int) Math.Round(DisplayCanvas.ActualWidth - DisplayShape.ActualWidth);
-            var areaY = (int) Math.Round(DisplayCanvas.ActualHeight - DisplayShape.ActualHeight);
-            return new Point(_random.Next(areaX) + 1, _random.Next(areaY) + 1);
+            await Task.Delay(10);
+            source.ClearValue(VisibilityProperty);
         }
     }
 

@@ -6,49 +6,10 @@
       xmlns:local="clr-namespace:Walterlv.Demo.Pages"
       xmlns:media="clr-namespace:Walterlv.Demo.Media"
       xmlns:ed="http://schemas.microsoft.com/expression/2010/drawing"
-      mc:Ignorable="d" Title="StoryboardPage">
+      mc:Ignorable="d" Title="StoryboardPage"
+      d:DesignWidth="1280" d:DesignHeight="720">
     <Page.Resources>
-        <CircleEase x:Key="EasingFunction.Translate" EasingMode="EaseOut"/>
-        <CubicEase x:Key="EasingFunction.DrawLine" EasingMode="EaseOut"/>
-        <Storyboard x:Key="Storyboard.Translate"/>
-        <Storyboard x:Key="Storyboard.Background" RepeatBehavior="Forever">
-            <ColorAnimationUsingKeyFrames Storyboard.TargetName="DisplayShape" Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)">
-                <LinearColorKeyFrame KeyTime="0:0:0" Value="Teal"/>
-                <LinearColorKeyFrame KeyTime="0:0:2" Value="Orange"/>
-                <LinearColorKeyFrame KeyTime="0:0:4" Value="LightSeaGreen"/>
-                <LinearColorKeyFrame KeyTime="0:0:6" Value="Tomato"/>
-                <LinearColorKeyFrame KeyTime="0:0:8" Value="Maroon"/>
-                <LinearColorKeyFrame KeyTime="0:0:10" Value="Navy"/>
-                <LinearColorKeyFrame KeyTime="0:0:12" Value="Fuchsia"/>
-                <LinearColorKeyFrame KeyTime="0:0:14" Value="Teal"/>
-            </ColorAnimationUsingKeyFrames>
-        </Storyboard>
-        <Storyboard x:Key="Storyboard.DrawName" BeginTime="0:0:2">
-            <DoubleAnimation Storyboard.TargetName="w" Storyboard.TargetProperty="StrokeDashOffset"
-                             To="0" BeginTime="0:0:0" Duration="0:0:1" EasingFunction="{StaticResource EasingFunction.DrawLine}"/>
-            <DoubleAnimation Storyboard.TargetName="a" Storyboard.TargetProperty="StrokeDashOffset"
-                             To="0" BeginTime="0:0:1" Duration="0:0:1" EasingFunction="{StaticResource EasingFunction.DrawLine}"/>
-            <DoubleAnimation Storyboard.TargetName="l1" Storyboard.TargetProperty="StrokeDashOffset"
-                             To="0" BeginTime="0:0:2" Duration="0:0:1" EasingFunction="{StaticResource EasingFunction.DrawLine}"/>
-            <DoubleAnimation Storyboard.TargetName="t_1" Storyboard.TargetProperty="StrokeDashOffset"
-                             To="0" BeginTime="0:0:3" Duration="0:0:0.4" EasingFunction="{StaticResource EasingFunction.DrawLine}"/>
-            <DoubleAnimation Storyboard.TargetName="t_2" Storyboard.TargetProperty="StrokeDashOffset"
-                             To="0" BeginTime="0:0:3.4" Duration="0:0:0.6" EasingFunction="{StaticResource EasingFunction.DrawLine}"/>
-            <DoubleAnimation Storyboard.TargetName="e" Storyboard.TargetProperty="StrokeDashOffset"
-                             To="0" BeginTime="0:0:4" Duration="0:0:1" EasingFunction="{StaticResource EasingFunction.DrawLine}"/>
-            <DoubleAnimation Storyboard.TargetName="r" Storyboard.TargetProperty="StrokeDashOffset"
-                             To="0" BeginTime="0:0:5" Duration="0:0:1" EasingFunction="{StaticResource EasingFunction.DrawLine}"/>
-            <DoubleAnimation Storyboard.TargetName="l2" Storyboard.TargetProperty="StrokeDashOffset"
-                             To="0" BeginTime="0:0:6" Duration="0:0:1" EasingFunction="{StaticResource EasingFunction.DrawLine}"/>
-            <DoubleAnimation Storyboard.TargetName="v" Storyboard.TargetProperty="StrokeDashOffset"
-                             To="0" BeginTime="0:0:7" Duration="0:0:1" EasingFunction="{StaticResource EasingFunction.DrawLine}"/>
-        </Storyboard>
     </Page.Resources>
-    <Page.Triggers>
-        <EventTrigger RoutedEvent="FrameworkElement.Loaded">
-            <BeginStoryboard Storyboard="{StaticResource Storyboard.Background}"/>
-        </EventTrigger>
-    </Page.Triggers>
 
     <Grid Background="White">
         <Grid.RowDefinitions>
@@ -60,8 +21,8 @@
             <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <Button Grid.Row="0" Grid.Column="0" Content="平移至随机位置" Click="BeginStoryboard_Click"/>
-        <Button Grid.Row="0" Grid.Column="1" Content="从随机位置平移" Click="BeginStoryboard2_Click"/>
+        <Button Grid.Row="0" Grid.Column="0" x:Name="ConnectionSource" Content="开始连接动画" Click="BeginStoryboard_Click"/>
+        <Button Grid.Row="0" Grid.Column="1" Content="" Click="BeginStoryboard2_Click"/>
         <Button Grid.Row="0" Grid.Column="2" Content="暂停" Click="PauseStoryboard_Click"/>
         <TextBlock Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" Grid.ColumnSpan="3"
                 Text="walterlv" FontSize="64" FontWeight="Thin" Opacity="0.17"
@@ -74,9 +35,8 @@
                     <Setter Property="StrokeThickness" Value="4"/>
                 </Style>
             </FrameworkElement.Resources>
-            
-            <Border Background="Teal" BorderThickness="4" BorderBrush="Orange" Width="200" Height="100"/>
-            <Border Background="Tomato" ></Border>
         </Canvas>
+        <Button Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" x:Name="ConnectionDestination"
+                VerticalAlignment="Bottom" Height="50" Content="动画目标"/>
     </Grid>
 </Page>
