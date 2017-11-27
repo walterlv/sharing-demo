@@ -54,16 +54,19 @@ namespace Walterlv.Demo.Pages
         private async void BeginConnectedAnimation(UIElement source)
         {
             source.Visibility = Visibility.Hidden;
+            ConnectionDestination.Visibility = Visibility.Hidden;
             var animatingSource = (UIElement) VisualTreeHelper.GetChild(source, 0);
+            var animatingDestination = (UIElement)VisualTreeHelper.GetChild(ConnectionDestination, 0);
 
             var service = ConnectedAnimationService.GetForCurrentView(this);
             service.PrepareToAnimate($"Test{index}", animatingSource);
             var animation = service.GetAnimation($"Test{index}");
-            animation?.TryStart(ConnectionDestination);
+            animation?.TryStart(animatingDestination);
             index++;
 
-            await Task.Delay(10);
+            await Task.Delay(10000);
             source.ClearValue(VisibilityProperty);
+            ConnectionDestination.ClearValue(VisibilityProperty);
         }
     }
 
