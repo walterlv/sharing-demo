@@ -77,6 +77,7 @@
     </Compile>
     <Compile Include="Utils\Media\Animation\ConnectedAnimation.cs" />
     <Compile Include="Utils\Media\Animation\ConnectedAnimationService.cs" />
+    <Compile Include="Utils\Media\Matrix33.cs" />
     <Compile Include="Utils\Media\TransformMatrix.cs" />
     <Compile Include="Utils\Windows\AsyncApplication.cs" />
     <Compile Include="Utils\Windows\CoreWindow.cs" />
