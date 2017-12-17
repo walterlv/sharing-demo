@@ -92,14 +92,6 @@
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="..\Walterlv.Demo.Sharing\MainPage.xaml.cs">
-      <Link>MainPage.xaml.cs</Link>
-      <DependentUpon>MainPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="..\Walterlv.Demo.Sharing\Pages\StoryboardPage.xaml.cs">
-      <Link>Pages\StoryboardPage.xaml.cs</Link>
-      <DependentUpon>StoryboardPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
@@ -147,6 +139,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />
+  <Import Project="..\Walterlv.Demo.Sharing\Walterlv.Demo.Sharing.projitems" Label="Shared" />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿#if WPF
+using System;
 using System.Runtime.ExceptionServices;
 using System.Windows.Threading;
 using Walterlv.Annotations;
@@ -149,3 +150,4 @@ namespace Walterlv.Demo.Utils.Threading
         }
     }
 }
+#endif

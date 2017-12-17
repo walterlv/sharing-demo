@@ -38,5 +38,12 @@
         </Canvas>
         <Button Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" x:Name="ConnectionDestination"
                 VerticalAlignment="Bottom" Height="50" Content="动画目标"/>
+
+        <Button Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" Grid.ColumnSpan="3"
+                Width="200" Height="60" Content="walterlv.github.io">
+            <Button.Effect>
+                <BlurEffect Radius="30"/>
+            </Button.Effect>
+        </Button>
     </Grid>
 </Page>
