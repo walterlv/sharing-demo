@@ -90,6 +90,7 @@
     <Compile Include="Utils\Media\LuminanceForegroundExtension.cs" />
     <Compile Include="Utils\Contracts\ContractBase.cs" />
     <Compile Include="Utils\Contracts\ContractHandle.cs" />
+    <Compile Include="Utils\Windows\Interop\ApplicationRestartManager.cs" />
     <Compile Include="Utils\Windows\Interop\FrameworkElementAsyncAdapters.cs" />
     <Compile Include="Utils\Windows\Interop\HwndAsyncSource.cs" />
     <Compile Include="Utils\Contracts\IContract.cs" />
